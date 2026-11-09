@@ -17,14 +17,16 @@
 <script>
   /* Экран для архондарика: тот же сайт обители, но сразу страница-табло (параметр tv=1) — часы, распорядок,
      колокол за 30 минут до службы, погода, изречения. Пока сайт закрыт, ключ k берётся из памяти браузера
-     (его запоминает stpanteleimon.gr/?k=КЛЮЧ) или из ссылки stpanteleimon.gr/tv/?k=КЛЮЧ. */
+     (его запоминает stpanteleimon.gr/?k=КЛЮЧ) или из ссылки stpanteleimon.gr/tv/?k=КЛЮЧ.
+     Фон можно выбрать: stpanteleimon.gr/tv/?bg=49 — номер снимка в разделе «Фото». */
   (function () {
     var SITE = "https://script.google.com/macros/s/AKfycbw8GeiHe-gKmS68FWwlqcJmy8rU77qDIHDe_XTDARqmdjhct2NqODonH3mpOKLEUhL4/exec";
     var q = new URLSearchParams(location.search);
-    var k = q.get("k") || "";
+    var k = q.get("k") || "", bg = q.get("bg") || "";
     try { if (k) localStorage.setItem("k", k); else k = localStorage.getItem("k") || ""; } catch (e) { /* без памяти */ }
-    document.getElementById("site").src = SITE + "?w=1&tv=1" + (k ? "&k=" + encodeURIComponent(k) : "");
-    if (q.has("k")) { try { history.replaceState(null, "", location.pathname); } catch (e) { /* ignore */ } }
+    document.getElementById("site").src = SITE + "?w=1&tv=1" + (k ? "&k=" + encodeURIComponent(k) : "") +
+      (/^[0-9a-z]{1,8}$/.test(bg) ? "&bg=" + bg : "");
+    if (q.has("k")) { try { history.replaceState(null, "", location.pathname + (bg ? "?bg=" + encodeURIComponent(bg) : "")); } catch (e) { /* ignore */ } }
   })();
 </script>
 </body>
