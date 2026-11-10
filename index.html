@@ -53,7 +53,7 @@
   (function () {
     var SITE = "https://script.google.com/macros/s/AKfycbw8GeiHe-gKmS68FWwlqcJmy8rU77qDIHDe_XTDARqmdjhct2NqODonH3mpOKLEUhL4/exec";
     var q = new URLSearchParams(location.search);
-    var k = q.get("k") || "", gt = q.get("gt") || "";
+    var k = q.get("k") || "", gt = q.get("gt") || "", dz = q.get("d") || "";   /* d=2 — пробное оформление, d=1 — обычное */
     try { if (k) localStorage.setItem("k", k); else k = localStorage.getItem("k") || ""; } catch (e) { /* без памяти */ }
     /* язык: какой выбран на сайте в прошлый раз (сайт сообщает его сюда), иначе — язык браузера; сервер сразу пришлёт этот язык */
     var LANGS = ["ru", "el", "en", "uk", "sr", "ro", "de", "fr"], hl = "";
@@ -75,7 +75,7 @@
     frame.addEventListener("load", function () { setTimeout(hide, 3000); });
     setTimeout(hide, 15000);
     frame.src = SITE + "?w=1" + (k ? "&k=" + encodeURIComponent(k) : "") + (hl !== "ru" ? "&hl=" + hl : "") +
-      (gt ? "&gt=" + encodeURIComponent(gt) : "") + (location.hash || "");
+      (gt ? "&gt=" + encodeURIComponent(gt) : "") + (/^[12]$/.test(dz) ? "&d=" + dz : "") + (location.hash || "");
     if (q.has("k") || q.has("gt")) { try { history.replaceState(null, "", location.pathname + location.hash); } catch (e) { /* ignore */ } }
   })();
 </script>
