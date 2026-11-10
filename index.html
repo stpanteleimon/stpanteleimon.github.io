@@ -71,7 +71,8 @@
       if (d.ready) hide();
       if (d.hl && LANGS.indexOf(d.hl) >= 0) { try { localStorage.setItem("hl", d.hl); } catch (er) { /* без памяти */ } }
     });
-    frame.addEventListener("load", function () { setTimeout(hide, 600); });
+    /* сайт сам скажет «готов» (ready); если не скажет — заставка уйдёт через 3 секунды после загрузки рамки */
+    frame.addEventListener("load", function () { setTimeout(hide, 3000); });
     setTimeout(hide, 15000);
     frame.src = SITE + "?w=1" + (k ? "&k=" + encodeURIComponent(k) : "") + (hl !== "ru" ? "&hl=" + hl : "") +
       (gt ? "&gt=" + encodeURIComponent(gt) : "") + (location.hash || "");
