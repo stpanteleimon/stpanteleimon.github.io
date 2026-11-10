@@ -19,14 +19,14 @@
      колокол за 30 минут до службы, погода, изречения. Пока сайт закрыт, ключ k берётся из памяти браузера
      (его запоминает stpanteleimon.gr/?k=КЛЮЧ) или из ссылки stpanteleimon.gr/tv/?k=КЛЮЧ.
      Фон можно выбрать: stpanteleimon.gr/tv/?bg=49 — номер снимка в разделе «Фото».
-     Вариант со сменой снимков слева вверху: stpanteleimon.gr/tv/?foto=1. */
+     Снимки слева вверху показываются всегда; прежний вид без них — stpanteleimon.gr/tv/?foto=0. */
   (function () {
     var SITE = "https://script.google.com/macros/s/AKfycbw8GeiHe-gKmS68FWwlqcJmy8rU77qDIHDe_XTDARqmdjhct2NqODonH3mpOKLEUhL4/exec";
     var q = new URLSearchParams(location.search);
-    var k = q.get("k") || "", bg = q.get("bg") || "", foto = q.get("foto") === "1";
+    var k = q.get("k") || "", bg = q.get("bg") || "", foto = q.get("foto") === "0" ? "0" : "";
     try { if (k) localStorage.setItem("k", k); else k = localStorage.getItem("k") || ""; } catch (e) { /* без памяти */ }
     document.getElementById("site").src = SITE + "?w=1&tv=1" + (k ? "&k=" + encodeURIComponent(k) : "") +
-      (/^[0-9a-z]{1,8}$/.test(bg) ? "&bg=" + bg : "") + (foto ? "&foto=1" : "");
+      (/^[0-9a-z]{1,8}$/.test(bg) ? "&bg=" + bg : "") + (foto ? "&foto=" + foto : "");
     if (q.has("k")) { try { q.delete("k"); var r = q.toString(); history.replaceState(null, "", location.pathname + (r ? "?" + r : "")); } catch (e) { /* ignore */ } }
   })();
 </script>
