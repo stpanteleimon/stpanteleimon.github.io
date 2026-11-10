@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Нет связи — Свято-Пантелеимонов монастырь</title>
+<meta name="theme-color" content="#1C6650">
+<style>
+  html, body { margin: 0; min-height: 100%; background: #F3F5F1; color: #16211D; }
+  body { display: grid; place-items: center; min-height: 100vh; font-family: Georgia, "Times New Roman", serif; text-align: center; }
+  .in { display: grid; justify-items: center; gap: 12px; padding: 24px; max-width: 30rem; }
+  img { width: 96px; height: 96px; border-radius: 22px; box-shadow: 0 4px 14px rgba(0,30,20,.3); }
+  h1 { margin: 6px 0 0; font-weight: 400; font-size: 1.6rem; }
+  p { margin: 0; font: 1rem/1.5 "Segoe UI", Roboto, Arial, sans-serif; color: #56645D; }
+  button { margin-top: 8px; font: 600 1rem "Segoe UI", Roboto, Arial, sans-serif; color: #fff; background: #1C6650; border: 0; border-radius: 999px; padding: 12px 22px; cursor: pointer; }
+  @media (prefers-color-scheme: dark) { html, body { background: #0E1513; color: #E3EAE6; } p { color: #9CABA4; } }
+</style>
+</head>
+<body>
+<div class="in">
+  <img src="/icon-192.png" alt="">
+  <h1>Нет связи с интернетом</h1>
+  <p>Сайт обители откроется, как только появится связь. · No internet connection — the site will open as soon as you are back online.</p>
+  <button type="button" onclick="location.reload()">Обновить · Retry</button>
+</div>
+<script>addEventListener("online", function () { location.reload(); });</script>
+</body>
+</html>
