@@ -1,0 +1,44 @@
+{
+  "id": "/arch/",
+  "name": "Архондарик — Свято-Пантелеимонов монастырь",
+  "short_name": "Архондарик",
+  "description": "Экран архондарика Свято-Пантелеимонова монастыря: кельи, кого ждём, заселение и выписка.",
+  "lang": "ru",
+  "dir": "ltr",
+  "start_url": "/arch/",
+  "scope": "/arch/",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#F3F5F1",
+  "theme_color": "#6B2430",
+  "categories": [
+    "productivity",
+    "business"
+  ],
+  "icons": [
+    {
+      "src": "/arch/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/arch/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/arch/icon-maskable-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/arch/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

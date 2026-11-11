@@ -1,0 +1,44 @@
+{
+  "id": "/sluzhba/",
+  "name": "Паломническая служба — Свято-Пантелеимонов монастырь",
+  "short_name": "Служба",
+  "description": "Паломническая служба Свято-Пантелеимонова монастыря: заявки, паломники на день, диамонитирионы, реестр.",
+  "lang": "ru",
+  "dir": "ltr",
+  "start_url": "/sluzhba/",
+  "scope": "/sluzhba/",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#F3F5F1",
+  "theme_color": "#1E3F6E",
+  "categories": [
+    "productivity",
+    "business"
+  ],
+  "icons": [
+    {
+      "src": "/sluzhba/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/sluzhba/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/sluzhba/icon-maskable-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/sluzhba/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
