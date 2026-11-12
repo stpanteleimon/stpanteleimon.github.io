@@ -55,10 +55,13 @@
 <script>
   /* Рабочее приложение «Служба»: тот же сайт обители (Google Apps Script), но открывается сразу свой экран (#admin),
      без разделов сайта и только по-русски. Ключ закрытого сайта (k) — общий с stpanteleimon.gr: один раз ?k=КЛЮЧ, дальше он помнится.
-     Кнопку «Установить приложение» показывает сам экран; сюда он присылает {install}, а отсюда узнаёт, можно ли поставить. */
+     Кнопку «Установить приложение» показывает сам экран; сюда он присылает {install}, а отсюда узнаёт, можно ли поставить.
+     Без связи: экран заранее присылает сюда копию страницы, последние данные и очередь изменений. Нет интернета — открывается
+     эта копия: всё видно, отметки ставятся и ждут в очереди; связь вернулась — открывается настоящий экран и очередь уходит сама. */
   (function () {
     var SITE = "https://script.google.com/macros/s/AKfycbw8GeiHe-gKmS68FWwlqcJmy8rU77qDIHDe_XTDARqmdjhct2NqODonH3mpOKLEUhL4/exec";
-    var KIND = "sluzhba";
+    var PING = "https://script.google.com/favicon.ico";
+    var KIND = "sluzhba", HOME = "admin";
     var q = new URLSearchParams(location.search);
     var k = q.get("k") || "";
     try { if (k) localStorage.setItem("k", k); else k = localStorage.getItem("k") || ""; } catch (e) { /* без памяти */ }
@@ -68,24 +71,96 @@
     try { standalone = matchMedia("(display-mode: standalone)").matches || navigator.standalone === true; } catch (e) { /* ignore */ }
     var ios = /iP(hone|ad|od)/.test(navigator.userAgent) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
     var appState = function () { return standalone ? "installed" : bip ? "prompt" : ios ? "ios" : "none"; };
-    var tellSite = function () { if (siteWin) { try { siteWin.postMessage({ filoxTop: 1, app: appState(), kind: KIND }, siteOrigin); } catch (e) { /* ignore */ } } };
+    /* память браузера на этом устройстве */
+    var ls = {
+      get: function (n) { try { return localStorage.getItem(n); } catch (e) { return null; } },
+      set: function (n, v) { try { localStorage.setItem(n, v); } catch (e) { /* места нет — без копии */ } },
+      del: function (n) { try { localStorage.removeItem(n); } catch (e) { /* ignore */ } }
+    };
+    var OFF_CACHE = "filox-off", OFF_PAGE = "/" + KIND + "/__page", OFF_VER = "filox-off-ver-" + KIND;
+    var offKey = function (n) { return typeof n === "string" && /^(filox-[\w-]{1,40}|ferry-ctl)$/.test(n); };
+    var shell = false, live = false;
+    var tellSite = function () {
+      if (!siteWin) return;
+      try { siteWin.postMessage({ filoxTop: 1, app: appState(), kind: KIND, vw: document.documentElement.clientWidth, off: 1, offVer: ls.get(OFF_VER) || "", offQ: ls.get("filox-outbox") }, siteOrigin); } catch (e) { /* ignore */ }
+    };
+    /* ширина экрана — сайту: на iPhone рамка бывает шире экрана, и сайт тогда раскладывается ровно по этой ширине */
+    window.addEventListener("resize", function () { tellSite(); });
     window.addEventListener("beforeinstallprompt", function (e) { e.preventDefault(); bip = e; tellSite(); });
     window.addEventListener("appinstalled", function () { bip = null; standalone = true; tellSite(); });
     if ("serviceWorker" in navigator) window.addEventListener("load", function () { navigator.serviceWorker.register("/sw.js").catch(function () { /* без приложения */ }); });
-    var offline = navigator.onLine === false;
-    if (offline) { document.getElementById("sp-off").hidden = false; window.addEventListener("online", function () { location.reload(); }); }
+    var offMsg = function () { document.getElementById("sp-off").hidden = false; };
+    /* есть ли связь с сервером обители (Google): короткий запрос, не дольше 6 секунд */
+    var probe = function () {
+      var ctl = typeof AbortController === "function" ? new AbortController() : null;
+      var t = setTimeout(function () { if (ctl) ctl.abort(); }, 6000);
+      return fetch(PING + "?x=" + Date.now(), { mode: "no-cors", cache: "no-store", signal: ctl ? ctl.signal : undefined })
+        .then(function () { clearTimeout(t); return true; }, function () { clearTimeout(t); return false; });
+    };
+    /* открыть копию экрана (без связи) */
+    var openShell = function () {
+      if (shell || live || !("caches" in window)) return Promise.resolve(shell);
+      return caches.open(OFF_CACHE).then(function (c) { return c.match(OFF_PAGE); }).then(function (res) { return res ? res.text() : null; }).then(function (html) {
+        if (!html || shell || live) return shell;
+        shell = true;
+        var boot = "<script>window.__OFFSHELL=1;window.__GK='';(function(){var n=function(){};window.google={script:{run:{},history:{push:n,replace:n,setChangeHandler:n}," +
+          "url:{getLocation:function(cb){setTimeout(function(){cb({hash:'" + HOME + "',parameter:{app:'" + KIND + "',w:'1'}})},0)}}}};})();<\/script>";
+        var i = html.search(/<head[^>]*>/i);
+        html = i >= 0 ? html.replace(/<head[^>]*>/i, function (m) { return m + boot; }) : boot + html;
+        frame.removeAttribute("src");
+        frame.srcdoc = html;
+        watchNet();
+        return true;
+      }).catch(function () { return shell; });
+    };
+    /* пока открыта копия: связь появилась — сказать экрану; он сам попросит открыть настоящий (если сейчас ничего не вписывают) */
+    var watching = false;
+    var watchNet = function () {
+      if (watching) return;
+      watching = true;
+      var tick = function () {
+        probe().then(function (ok) {
+          if (ok && siteWin) { try { siteWin.postMessage({ filoxTop: 1, online: 1 }, siteOrigin); } catch (e) { /* ignore */ } }
+          setTimeout(tick, ok ? 5000 : 15000);
+        });
+      };
+      setTimeout(tick, 3000);
+      window.addEventListener("online", function () { setTimeout(tick, 500); });
+    };
     window.addEventListener("message", function (e) {
       var d = e.data;
-      if (!d || d.filox !== 1 || !/\.googleusercontent\.com$/.test(String(e.origin).replace(/^https:\/\//, "."))) return;
-      if (d.ready) { siteWin = e.source; siteOrigin = e.origin; tellSite(); hide(); }
+      var fromSite = /\.googleusercontent\.com$/.test(String(e.origin).replace(/^https:\/\//, "."));
+      var fromShell = shell && e.origin === location.origin && e.source === frame.contentWindow;
+      if (!d || d.filox !== 1 || !(fromSite || fromShell)) return;
+      if (d.ready) { siteWin = e.source; siteOrigin = e.origin; if (fromSite) live = true; tellSite(); hide(); }
       if (d.install && bip) {
         var p = bip; bip = null;
         try { p.prompt(); p.userChoice.then(function () { tellSite(); }, function () { tellSite(); }); } catch (er) { tellSite(); }
       }
+      /* копии для работы без связи — от настоящего экрана */
+      if (fromSite && d.offSave && offKey(d.offSave.k)) { if (d.offSave.v == null) ls.del(d.offSave.k); else ls.set(d.offSave.k, String(d.offSave.v)); }
+      if (fromSite && d.offPage && typeof d.offPage.html === "string" && d.offPage.html.length > 10000 && "caches" in window) {
+        caches.open(OFF_CACHE).then(function (c) { return c.put(OFF_PAGE, new Response(d.offPage.html, { headers: { "content-type": "text/html; charset=utf-8" } })); })
+          .then(function () { ls.set(OFF_VER, String(d.offPage.ver || "")); }, function () { /* без копии */ });
+      }
+      if (fromShell && d.goLive) location.reload();
     });
-    frame.addEventListener("load", function () { if (!offline) setTimeout(hide, 3000); });
-    setTimeout(function () { if (!offline) hide(); }, 15000);
-    frame.src = SITE + "?w=1&app=" + KIND + (k ? "&k=" + encodeURIComponent(k) : "") + "#admin";
+    frame.addEventListener("load", function () { setTimeout(hide, 3000); });
+    if (navigator.onLine === false) {
+      /* интернета нет совсем: копия экрана, если она уже есть на устройстве */
+      openShell().then(function (ok) { if (!ok) { offMsg(); window.addEventListener("online", function () { location.reload(); }); } });
+      return;
+    }
+    setTimeout(function () { if (!shell) hide(); }, 15000);
+    /* Wi-Fi есть, а интернета нет: экран за 10 секунд не открылся и сервер не отвечает — копия экрана */
+    setTimeout(function () {
+      if (live || shell) return;
+      probe().then(function (ok) { if (!ok && !live) openShell().then(function (s) { if (!s) offMsg(); }); });
+    }, 10000);
+    /* ссылка «Ответить» из письма о новой заявке: …/sluzhba/#rq=ГГГГ/НННН — номер заявки передаём параметром */
+    var rq = (/^#rq=(.+)$/.exec(location.hash) || [])[1] || "";
+    try { rq = decodeURIComponent(rq); } catch (e) { /* как есть */ }
+    frame.src = SITE + "?w=1&app=" + KIND + (k ? "&k=" + encodeURIComponent(k) : "") + (rq ? "&rq=" + encodeURIComponent(rq) : "") + "#" + HOME;
     if (q.has("k")) { try { history.replaceState(null, "", location.pathname); } catch (e) { /* ignore */ } }
   })();
 </script>

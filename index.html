@@ -8,8 +8,9 @@
 <meta property="og:title" content="Свято-Пантелеимонов монастырь — Святая Гора Афон">
 <meta property="og:description" content="Ἱερὰ Μονὴ Ἁγίου Παντελεήμονος · Holy Monastery of St Panteleimon, Mount Athos">
 <meta name="theme-color" content="#1C6650">
-<!-- Приложение на телефоне (ставится прямо с сайта): описание, значки, заставка iPhone -->
-<link rel="manifest" href="/manifest.webmanifest">
+<!-- Приложение на телефоне: у главного приложения свой адрес stpanteleimon.gr/app/ (у архондарика — /arch/, у службы — /sluzhba/),
+     поэтому все три ставятся рядом и не заменяют друг друга -->
+<link rel="manifest" href="/app/manifest.webmanifest">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -61,6 +62,7 @@
      а весь сайт открывается по ссылке stpanteleimon.gr/?k=КЛЮЧ. Ключ запоминается в этом браузере.
      gt — возврат со «Входа через Google». Ссылки вида stpanteleimon.gr/#register открывают нужный раздел. */
   (function () {
+    var KIND = "root";   /* главная страница; приложение — stpanteleimon.gr/app/ */
     var SITE = "https://script.google.com/macros/s/AKfycbw8GeiHe-gKmS68FWwlqcJmy8rU77qDIHDe_XTDARqmdjhct2NqODonH3mpOKLEUhL4/exec";
     var q = new URLSearchParams(location.search);
     var k = q.get("k") || "", gt = q.get("gt") || "", dz = q.get("d") || "";   /* d=2 — пробное оформление, d=1 — обычное */
@@ -81,7 +83,9 @@
     try { standalone = matchMedia("(display-mode: standalone)").matches || navigator.standalone === true; } catch (e) { /* ignore */ }
     var ios = /iP(hone|ad|od)/.test(navigator.userAgent) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
     var appState = function () { return standalone ? "installed" : bip ? "prompt" : ios ? "ios" : "none"; };
-    var tellSite = function () { if (siteWin) { try { siteWin.postMessage({ filoxTop: 1, app: appState() }, siteOrigin); } catch (e) { /* ignore */ } } };
+    var tellSite = function () { if (siteWin) { try { siteWin.postMessage({ filoxTop: 1, app: appState(), kind: KIND, vw: document.documentElement.clientWidth }, siteOrigin); } catch (e) { /* ignore */ } } };
+    /* ширина экрана — сайту: на iPhone рамка бывает шире экрана, и сайт тогда раскладывается ровно по этой ширине */
+    window.addEventListener("resize", function () { tellSite(); });
     window.addEventListener("beforeinstallprompt", function (e) { e.preventDefault(); bip = e; tellSite(); });
     window.addEventListener("appinstalled", function () { bip = null; tellSite(); });
     if ("serviceWorker" in navigator) window.addEventListener("load", function () { navigator.serviceWorker.register("/sw.js").catch(function () { /* без приложения */ }); });
