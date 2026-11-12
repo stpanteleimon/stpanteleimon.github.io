@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Свято-Пантелеимонов монастырь — Святая Гора Афон</title>
+<meta name="description" content="Свято-Пантелеимонов монастырь на Святой Горе Афон: обитель, братия, святыни, богослужения и календарь. Паломникам: Реестр паломников и заявка на ночлег (филоксения).">
+<meta property="og:title" content="Свято-Пантелеимонов монастырь — Святая Гора Афон">
+<meta property="og:description" content="Ἱερὰ Μονὴ Ἁγίου Παντελεήμονος · Holy Monastery of St Panteleimon, Mount Athos">
+<meta name="theme-color" content="#1C6650">
+<!-- Приложение на телефоне: у главного приложения свой адрес stpanteleimon.gr/app/ (у архондарика — /arch/, у службы — /sluzhba/),
+     поэтому все три ставятся рядом и не заменяют друг друга -->
+<link rel="manifest" href="/app/manifest.webmanifest">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Пантелеимон">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="/favicon-48.png" sizes="48x48" type="image/png">
+<link rel="preconnect" href="https://script.google.com">
+<link rel="preconnect" href="https://n-yzx4pdg36xofad3x4gr2ogopby4zucrczlsywjy-0lu-script.googleusercontent.com">
+<link rel="preconnect" href="https://lh3.googleusercontent.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" href="logo.webp" as="image">
+<style>
+  html, body { margin: 0; height: 100%; background: #F3F5F1; }
+  iframe { display: block; border: 0; width: 100%; height: 100vh; height: 100dvh; }
+  noscript p { font: 17px/1.5 Georgia, serif; color: #16211D; padding: 24px; }
+  noscript a { color: #1C6650; }
+  /* Заставка, пока сайт (Google) готовит страницу: герб и название — сразу, без ожидания */
+  #splash { position: fixed; inset: 0; z-index: 2; display: grid; place-items: center; background: #F3F5F1; color: #16211D;
+    transition: opacity .45s ease, visibility .45s; font-family: "Old Standard TT", Georgia, "Times New Roman", serif; text-align: center; }
+  #splash.gone { opacity: 0; visibility: hidden; }
+  #splash .in { display: grid; justify-items: center; gap: 14px; padding: 24px; }
+  #splash img { width: min(132px, 34vw); height: auto; animation: breathe 2.6s ease-in-out infinite; }
+  #splash .n { font-size: clamp(1.35rem, 3.2vw, 2rem); line-height: 1.2; letter-spacing: .01em; }
+  #splash .s { font: 500 clamp(.72rem, 1.6vw, .85rem)/1.3 "Fira Sans", "Segoe UI", Roboto, Arial, sans-serif; letter-spacing: .16em; text-transform: uppercase; color: #7E5B0E; }
+  #splash .off { max-width: 22rem; font: 1rem/1.5 "Fira Sans", "Segoe UI", Roboto, Arial, sans-serif; color: #56645D; }
+  #splash .off[hidden] { display: none; }
+  #splash .bar { width: 120px; height: 2px; margin-top: 10px; border-radius: 2px; background: rgba(28,102,80,.15); overflow: hidden; }
+  #splash .bar::after { content: ""; display: block; width: 40%; height: 100%; border-radius: 2px; background: #1C6650; animation: run 1.4s ease-in-out infinite; }
+  @keyframes breathe { 0%, 100% { transform: scale(1); opacity: .92; } 50% { transform: scale(1.035); opacity: 1; } }
+  @keyframes run { 0% { transform: translateX(-110%); } 100% { transform: translateX(260%); } }
+  @media (prefers-color-scheme: dark) {
+    html, body, #splash { background: #0E1513; }
+    #splash { color: #E3EAE6; }
+    #splash .s { color: #DDB461; }
+    #splash .bar { background: rgba(98,185,150,.18); }
+    #splash .bar::after { background: #62B996; }
+  }
+  @media (prefers-reduced-motion: reduce) { #splash img, #splash .bar::after { animation: none; } }
+</style>
+</head>
+<body>
+<div id="splash" role="status"><div class="in"><img src="logo.webp" alt="" width="132" height="132"><div class="n" id="sp-n">Свято-Пантелеимонов монастырь</div><div class="s" id="sp-s">Святая Гора Афон · Удел Богородицы</div><div class="bar" aria-hidden="true"></div><div class="off" id="sp-off" hidden>Нет связи с интернетом — сайт откроется, как только связь появится.<br>No internet connection.</div></div></div>
+<iframe id="site" title="Свято-Пантелеимонов монастырь" allow="clipboard-write; fullscreen; autoplay"></iframe>
+<noscript><p>Свято-Пантелеимонов монастырь. Для сайта нужен JavaScript: <a href="https://script.google.com/macros/s/AKfycbw8GeiHe-gKmS68FWwlqcJmy8rU77qDIHDe_XTDARqmdjhct2NqODonH3mpOKLEUhL4/exec">открыть сайт</a>.</p></noscript>
+<script>
+  /* Сайт обители работает на Google Apps Script; здесь он показан на весь экран под адресом stpanteleimon.gr.
+     Пока сайт закрыт (лист «Настройки» → «Сайт открыт для всех: Нет»), посетители видят страницу «Сайт готовится к открытию»,
+     а весь сайт открывается по ссылке stpanteleimon.gr/?k=КЛЮЧ. Ключ запоминается в этом браузере.
+     gt — возврат со «Входа через Google». Ссылки вида stpanteleimon.gr/#register открывают нужный раздел. */
+  (function () {
+    var KIND = "root";   /* главная страница; приложение — stpanteleimon.gr/app/ */
+    var SITE = "https://script.google.com/macros/s/AKfycbw8GeiHe-gKmS68FWwlqcJmy8rU77qDIHDe_XTDARqmdjhct2NqODonH3mpOKLEUhL4/exec";
+    var q = new URLSearchParams(location.search);
+    var k = q.get("k") || "", gt = q.get("gt") || "", dz = q.get("d") || "";   /* d=2 — пробное оформление, d=1 — обычное */
+    try { if (k) localStorage.setItem("k", k); else k = localStorage.getItem("k") || ""; } catch (e) { /* без памяти */ }
+    /* язык: какой выбран на сайте в прошлый раз (сайт сообщает его сюда), иначе — язык браузера; сервер сразу пришлёт этот язык */
+    var LANGS = ["ru", "el", "en", "uk", "sr", "ro", "de", "fr"], hl = "";
+    try { hl = localStorage.getItem("hl") || ""; } catch (e) { /* без памяти */ }
+    if (LANGS.indexOf(hl) < 0) { hl = String(navigator.language || "ru").slice(0, 2).toLowerCase(); if (LANGS.indexOf(hl) < 0) hl = "ru"; }
+    var NAMES = {"ru":["Свято-Пантелеимонов монастырь","Святая Гора Афон · Удел Богородицы"],"el":["Ιερά Μονή Αγίου Παντελεήμονος","Άγιον Όρος · Περιβόλι της Παναγίας"],"en":["St Panteleimon Monastery","Mount Athos · The Garden of the Mother of God"],"uk":["Свято-Пантелеймонів монастир","Свята Гора Афон · Уділ Богородиці"],"sr":["Манастир Светог Пантелејмона","Света Гора Атонска · Врт Пресвете Богородице"],"ro":["Mănăstirea Sfântul Pantelimon","Sfântul Munte Athos · Grădina Maicii Domnului"],"de":["Kloster des hl. Panteleimon","Heiliger Berg Athos · Garten der Gottesmutter"],"fr":["Monastère Saint-Panteleimon","Mont Athos · Jardin de la Mère de Dieu"]};
+    document.getElementById("sp-n").textContent = NAMES[hl][0];
+    document.getElementById("sp-s").textContent = NAMES[hl][1];
+    document.documentElement.lang = hl;
+    var splash = document.getElementById("splash"), frame = document.getElementById("site");
+    var hide = function () { splash.className = "gone"; };
+    /* Приложение на телефоне: браузер сообщает сюда, что сайт можно поставить как приложение, а кнопку «Установить приложение»
+       показывает сам сайт (в подвале). 'prompt' — браузер поставит сам; 'ios' — на iPhone подсказка; 'installed' — уже приложение. */
+    var bip = null, siteWin = null, siteOrigin = "", standalone = false;
+    try { standalone = matchMedia("(display-mode: standalone)").matches || navigator.standalone === true; } catch (e) { /* ignore */ }
+    var ios = /iP(hone|ad|od)/.test(navigator.userAgent) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+    var appState = function () { return standalone ? "installed" : bip ? "prompt" : ios ? "ios" : "none"; };
+    var tellSite = function () { if (siteWin) { try { siteWin.postMessage({ filoxTop: 1, app: appState(), kind: KIND, vw: document.documentElement.clientWidth }, siteOrigin); } catch (e) { /* ignore */ } } };
+    /* ширина экрана — сайту: на iPhone рамка бывает шире экрана, и сайт тогда раскладывается ровно по этой ширине */
+    window.addEventListener("resize", function () { tellSite(); });
+    window.addEventListener("beforeinstallprompt", function (e) { e.preventDefault(); bip = e; tellSite(); });
+    window.addEventListener("appinstalled", function () { bip = null; tellSite(); });
+    if ("serviceWorker" in navigator) window.addEventListener("load", function () { navigator.serviceWorker.register("/sw.js").catch(function () { /* без приложения */ }); });
+    /* без связи — заставка остаётся и говорит об этом; связь появилась — страница открывается сама */
+    var offline = navigator.onLine === false;
+    if (offline) { document.getElementById("sp-off").hidden = false; window.addEventListener("online", function () { location.reload(); }); }
+    window.addEventListener("message", function (e) {
+      var d = e.data;
+      if (!d || d.filox !== 1 || !/\.googleusercontent\.com$/.test(String(e.origin).replace(/^https:\/\//, "."))) return;
+      if (d.ready) { siteWin = e.source; siteOrigin = e.origin; tellSite(); }
+      if (d.install && bip) {
+        var p = bip; bip = null;
+        try { p.prompt(); p.userChoice.then(function () { tellSite(); }, function () { tellSite(); }); } catch (er) { tellSite(); }
+      }
+      if (d.ready) hide();
+      if (d.hl && LANGS.indexOf(d.hl) >= 0) { try { localStorage.setItem("hl", d.hl); } catch (er) { /* без памяти */ } }
+    });
+    /* сайт сам скажет «готов» (ready); если не скажет — заставка уйдёт через 3 секунды после загрузки рамки */
+    frame.addEventListener("load", function () { if (!offline) setTimeout(hide, 3000); });
+    setTimeout(function () { if (!offline) hide(); }, 15000);
+    frame.src = SITE + "?w=1" + (k ? "&k=" + encodeURIComponent(k) : "") + (hl !== "ru" ? "&hl=" + hl : "") +
+      (gt ? "&gt=" + encodeURIComponent(gt) : "") + (/^[12]$/.test(dz) ? "&d=" + dz : "") + (location.hash || "");
+    if (q.has("k") || q.has("gt")) { try { history.replaceState(null, "", location.pathname + location.hash); } catch (e) { /* ignore */ } }
+  })();
+</script>
+</body>
+</html>

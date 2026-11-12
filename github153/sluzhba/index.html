@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Паломническая служба Свято-Пантелеимонова монастыря</title>
+<meta name="description" content="Паломническая служба Свято-Пантелеимонова монастыря: заявки, паломники на день, диамонитирионы, реестр.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#1E3F6E">
+<!-- Рабочее приложение (ставится прямо отсюда, без магазина приложений): открывает только свой экран сайта -->
+<link rel="manifest" href="/sluzhba/manifest.webmanifest">
+<link rel="apple-touch-icon" href="/sluzhba/apple-touch-icon.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Служба">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="icon" href="/sluzhba/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="/sluzhba/favicon-48.png" sizes="48x48" type="image/png">
+<link rel="preconnect" href="https://script.google.com">
+<link rel="preconnect" href="https://n-yzx4pdg36xofad3x4gr2ogopby4zucrczlsywjy-0lu-script.googleusercontent.com">
+<link rel="preload" href="/logo.webp" as="image">
+<style>
+  html, body { margin: 0; height: 100%; background: #F3F5F1; }
+  iframe { display: block; border: 0; width: 100%; height: 100vh; height: 100dvh; }
+  noscript p { font: 17px/1.5 Georgia, serif; color: #16211D; padding: 24px; }
+  noscript a { color: #1E3F6E; }
+  /* Заставка, пока сайт (Google) готовит страницу: герб и название — сразу, без ожидания */
+  #splash { position: fixed; inset: 0; z-index: 2; display: grid; place-items: center; background: #F3F5F1; color: #16211D;
+    transition: opacity .45s ease, visibility .45s; font-family: "Old Standard TT", Georgia, "Times New Roman", serif; text-align: center; }
+  #splash.gone { opacity: 0; visibility: hidden; }
+  #splash .in { display: grid; justify-items: center; gap: 14px; padding: 24px; }
+  #splash img { width: min(132px, 34vw); height: auto; animation: breathe 2.6s ease-in-out infinite; }
+  #splash .n { font-size: clamp(1.35rem, 3.2vw, 2rem); line-height: 1.2; letter-spacing: .01em; }
+  #splash .s { font: 500 clamp(.72rem, 1.6vw, .85rem)/1.3 "Fira Sans", "Segoe UI", Roboto, Arial, sans-serif; letter-spacing: .16em; text-transform: uppercase; color: #7E5B0E; }
+  #splash .off { max-width: 22rem; font: 1rem/1.5 "Fira Sans", "Segoe UI", Roboto, Arial, sans-serif; color: #56645D; }
+  #splash .off[hidden] { display: none; }
+  #splash .bar { width: 120px; height: 2px; margin-top: 10px; border-radius: 2px; background: rgba(28,102,80,.15); overflow: hidden; }
+  #splash .bar::after { content: ""; display: block; width: 40%; height: 100%; border-radius: 2px; background: #1E3F6E; animation: run 1.4s ease-in-out infinite; }
+  @keyframes breathe { 0%, 100% { transform: scale(1); opacity: .92; } 50% { transform: scale(1.035); opacity: 1; } }
+  @keyframes run { 0% { transform: translateX(-110%); } 100% { transform: translateX(260%); } }
+  @media (prefers-color-scheme: dark) {
+    html, body, #splash { background: #0E1513; }
+    #splash { color: #E3EAE6; }
+    #splash .s { color: #DDB461; }
+    #splash .bar { background: rgba(98,185,150,.18); }
+    #splash .bar::after { background: #62B996; }
+  }
+  @media (prefers-reduced-motion: reduce) { #splash img, #splash .bar::after { animation: none; } }
+</style>
+</head>
+<body>
+<div id="splash" role="status"><div class="in"><img src="/logo.webp" alt="" width="132" height="132"><div class="n">Паломническая служба</div><div class="s">Свято-Пантелеимонов монастырь</div><div class="bar" aria-hidden="true"></div><div class="off" id="sp-off" hidden>Нет связи с интернетом — экран откроется, как только связь появится.</div></div></div>
+<iframe id="site" title="Паломническая служба Свято-Пантелеимонова монастыря" allow="clipboard-write; fullscreen; autoplay"></iframe>
+<noscript><p>Для этого экрана нужен JavaScript.</p></noscript>
+<script>
+  /* Рабочее приложение «Служба»: тот же сайт обители (Google Apps Script), но открывается сразу свой экран (#admin),
+     без разделов сайта и только по-русски. Ключ закрытого сайта (k) — общий с stpanteleimon.gr: один раз ?k=КЛЮЧ, дальше он помнится.
+     Кнопку «Установить приложение» показывает сам экран; сюда он присылает {install}, а отсюда узнаёт, можно ли поставить.
+     Без связи: экран заранее присылает сюда копию страницы, последние данные и очередь изменений. Нет интернета — открывается
+     эта копия: всё видно, отметки ставятся и ждут в очереди; связь вернулась — открывается настоящий экран и очередь уходит сама. */
+  (function () {
+    var SITE = "https://script.google.com/macros/s/AKfycbw8GeiHe-gKmS68FWwlqcJmy8rU77qDIHDe_XTDARqmdjhct2NqODonH3mpOKLEUhL4/exec";
+    var PING = "https://script.google.com/favicon.ico";
+    var KIND = "sluzhba", HOME = "admin";
+    var q = new URLSearchParams(location.search);
+    var k = q.get("k") || "";
+    try { if (k) localStorage.setItem("k", k); else k = localStorage.getItem("k") || ""; } catch (e) { /* без памяти */ }
+    var splash = document.getElementById("splash"), frame = document.getElementById("site");
+    var hide = function () { splash.className = "gone"; };
+    var bip = null, siteWin = null, siteOrigin = "", standalone = false;
+    try { standalone = matchMedia("(display-mode: standalone)").matches || navigator.standalone === true; } catch (e) { /* ignore */ }
+    var ios = /iP(hone|ad|od)/.test(navigator.userAgent) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+    var appState = function () { return standalone ? "installed" : bip ? "prompt" : ios ? "ios" : "none"; };
+    /* память браузера на этом устройстве */
+    var ls = {
+      get: function (n) { try { return localStorage.getItem(n); } catch (e) { return null; } },
+      set: function (n, v) { try { localStorage.setItem(n, v); } catch (e) { /* места нет — без копии */ } },
+      del: function (n) { try { localStorage.removeItem(n); } catch (e) { /* ignore */ } }
+    };
+    var OFF_CACHE = "filox-off", OFF_PAGE = "/" + KIND + "/__page", OFF_VER = "filox-off-ver-" + KIND;
+    var offKey = function (n) { return typeof n === "string" && /^(filox-[\w-]{1,40}|ferry-ctl)$/.test(n); };
+    var shell = false, live = false;
+    var tellSite = function () {
+      if (!siteWin) return;
+      try { siteWin.postMessage({ filoxTop: 1, app: appState(), kind: KIND, vw: document.documentElement.clientWidth, off: 1, offVer: ls.get(OFF_VER) || "", offQ: ls.get("filox-outbox") }, siteOrigin); } catch (e) { /* ignore */ }
+    };
+    /* ширина экрана — сайту: на iPhone рамка бывает шире экрана, и сайт тогда раскладывается ровно по этой ширине */
+    window.addEventListener("resize", function () { tellSite(); });
+    window.addEventListener("beforeinstallprompt", function (e) { e.preventDefault(); bip = e; tellSite(); });
+    window.addEventListener("appinstalled", function () { bip = null; standalone = true; tellSite(); });
+    if ("serviceWorker" in navigator) window.addEventListener("load", function () { navigator.serviceWorker.register("/sw.js").catch(function () { /* без приложения */ }); });
+    var offMsg = function () { document.getElementById("sp-off").hidden = false; };
+    /* есть ли связь с сервером обители (Google): короткий запрос, не дольше 6 секунд */
+    var probe = function () {
+      var ctl = typeof AbortController === "function" ? new AbortController() : null;
+      var t = setTimeout(function () { if (ctl) ctl.abort(); }, 6000);
+      return fetch(PING + "?x=" + Date.now(), { mode: "no-cors", cache: "no-store", signal: ctl ? ctl.signal : undefined })
+        .then(function () { clearTimeout(t); return true; }, function () { clearTimeout(t); return false; });
+    };
+    /* открыть копию экрана (без связи) */
+    var openShell = function () {
+      if (shell || live || !("caches" in window)) return Promise.resolve(shell);
+      return caches.open(OFF_CACHE).then(function (c) { return c.match(OFF_PAGE); }).then(function (res) { return res ? res.text() : null; }).then(function (html) {
+        if (!html || shell || live) return shell;
+        shell = true;
+        var boot = "<script>window.__OFFSHELL=1;window.__GK='';(function(){var n=function(){};window.google={script:{run:{},history:{push:n,replace:n,setChangeHandler:n}," +
+          "url:{getLocation:function(cb){setTimeout(function(){cb({hash:'" + HOME + "',parameter:{app:'" + KIND + "',w:'1'}})},0)}}}};})();<\/script>";
+        var i = html.search(/<head[^>]*>/i);
+        html = i >= 0 ? html.replace(/<head[^>]*>/i, function (m) { return m + boot; }) : boot + html;
+        frame.removeAttribute("src");
+        frame.srcdoc = html;
+        watchNet();
+        return true;
+      }).catch(function () { return shell; });
+    };
+    /* пока открыта копия: связь появилась — сказать экрану; он сам попросит открыть настоящий (если сейчас ничего не вписывают) */
+    var watching = false;
+    var watchNet = function () {
+      if (watching) return;
+      watching = true;
+      var tick = function () {
+        probe().then(function (ok) {
+          if (ok && siteWin) { try { siteWin.postMessage({ filoxTop: 1, online: 1 }, siteOrigin); } catch (e) { /* ignore */ } }
+          setTimeout(tick, ok ? 5000 : 15000);
+        });
+      };
+      setTimeout(tick, 3000);
+      window.addEventListener("online", function () { setTimeout(tick, 500); });
+    };
+    window.addEventListener("message", function (e) {
+      var d = e.data;
+      var fromSite = /\.googleusercontent\.com$/.test(String(e.origin).replace(/^https:\/\//, "."));
+      var fromShell = shell && e.origin === location.origin && e.source === frame.contentWindow;
+      if (!d || d.filox !== 1 || !(fromSite || fromShell)) return;
+      if (d.ready) { siteWin = e.source; siteOrigin = e.origin; if (fromSite) live = true; tellSite(); hide(); }
+      if (d.install && bip) {
+        var p = bip; bip = null;
+        try { p.prompt(); p.userChoice.then(function () { tellSite(); }, function () { tellSite(); }); } catch (er) { tellSite(); }
+      }
+      /* копии для работы без связи — от настоящего экрана */
+      if (fromSite && d.offSave && offKey(d.offSave.k)) { if (d.offSave.v == null) ls.del(d.offSave.k); else ls.set(d.offSave.k, String(d.offSave.v)); }
+      if (fromSite && d.offPage && typeof d.offPage.html === "string" && d.offPage.html.length > 10000 && "caches" in window) {
+        caches.open(OFF_CACHE).then(function (c) { return c.put(OFF_PAGE, new Response(d.offPage.html, { headers: { "content-type": "text/html; charset=utf-8" } })); })
+          .then(function () { ls.set(OFF_VER, String(d.offPage.ver || "")); }, function () { /* без копии */ });
+      }
+      if (fromShell && d.goLive) location.reload();
+    });
+    frame.addEventListener("load", function () { setTimeout(hide, 3000); });
+    if (navigator.onLine === false) {
+      /* интернета нет совсем: копия экрана, если она уже есть на устройстве */
+      openShell().then(function (ok) { if (!ok) { offMsg(); window.addEventListener("online", function () { location.reload(); }); } });
+      return;
+    }
+    setTimeout(function () { if (!shell) hide(); }, 15000);
+    /* Wi-Fi есть, а интернета нет: экран за 10 секунд не открылся и сервер не отвечает — копия экрана */
+    setTimeout(function () {
+      if (live || shell) return;
+      probe().then(function (ok) { if (!ok && !live) openShell().then(function (s) { if (!s) offMsg(); }); });
+    }, 10000);
+    /* ссылка «Ответить» из письма о новой заявке: …/sluzhba/#rq=ГГГГ/НННН — номер заявки передаём параметром */
+    var rq = (/^#rq=(.+)$/.exec(location.hash) || [])[1] || "";
+    try { rq = decodeURIComponent(rq); } catch (e) { /* как есть */ }
+    frame.src = SITE + "?w=1&app=" + KIND + (k ? "&k=" + encodeURIComponent(k) : "") + (rq ? "&rq=" + encodeURIComponent(rq) : "") + "#" + HOME;
+    if (q.has("k")) { try { history.replaceState(null, "", location.pathname); } catch (e) { /* ignore */ } }
+  })();
+</script>
+</body>
+</html>
