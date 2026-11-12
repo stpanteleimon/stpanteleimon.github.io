@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Служба рабочих — Ι. Μ. Αγίου Παντελεήμονος</title>
+<meta name="description" content="Свято-Пантелеимонов монастырь: анкета рабочих и служба рабочих (специальные рабочие диамонитирионы). Ι. Μ. Αγίου Παντελεήμονος: αίτηση για εργαζομένους.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#6E4A12">
+<!-- Рабочее приложение (ставится прямо отсюда, без магазина приложений): открывает только свой экран сайта -->
+<link rel="manifest" href="/workers/manifest.webmanifest">
+<link rel="apple-touch-icon" href="/workers/apple-touch-icon.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Рабочие">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="icon" href="/workers/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="/workers/favicon-48.png" sizes="48x48" type="image/png">
+<link rel="preconnect" href="https://script.google.com">
+<link rel="preconnect" href="https://n-yzx4pdg36xofad3x4gr2ogopby4zucrczlsywjy-0lu-script.googleusercontent.com">
+<link rel="preload" href="/logo.webp" as="image">
+<style>
+  html, body { margin: 0; height: 100%; background: #F3F5F1; }
+  iframe { display: block; border: 0; width: 100%; height: 100vh; height: 100dvh; }
+  noscript p { font: 17px/1.5 Georgia, serif; color: #16211D; padding: 24px; }
+  noscript a { color: #1E3F6E; }
+  /* Заставка, пока сайт (Google) готовит страницу: герб и название — сразу, без ожидания */
+  #splash { position: fixed; inset: 0; z-index: 2; display: grid; place-items: center; background: #F3F5F1; color: #16211D;
+    transition: opacity .45s ease, visibility .45s; font-family: "Old Standard TT", Georgia, "Times New Roman", serif; text-align: center; }
+  #splash.gone { opacity: 0; visibility: hidden; }
+  #splash .in { display: grid; justify-items: center; gap: 14px; padding: 24px; }
+  #splash img { width: min(132px, 34vw); height: auto; animation: breathe 2.6s ease-in-out infinite; }
+  #splash .n { font-size: clamp(1.35rem, 3.2vw, 2rem); line-height: 1.2; letter-spacing: .01em; }
+  #splash .s { font: 500 clamp(.72rem, 1.6vw, .85rem)/1.3 "Fira Sans", "Segoe UI", Roboto, Arial, sans-serif; letter-spacing: .16em; text-transform: uppercase; color: #7E5B0E; }
+  #splash .off { max-width: 22rem; font: 1rem/1.5 "Fira Sans", "Segoe UI", Roboto, Arial, sans-serif; color: #56645D; }
+  #splash .off[hidden] { display: none; }
+  #splash .bar { width: 120px; height: 2px; margin-top: 10px; border-radius: 2px; background: rgba(110,74,18,.15); overflow: hidden; }
+  #splash .bar::after { content: ""; display: block; width: 40%; height: 100%; border-radius: 2px; background: #6E4A12; animation: run 1.4s ease-in-out infinite; }
+  @keyframes breathe { 0%, 100% { transform: scale(1); opacity: .92; } 50% { transform: scale(1.035); opacity: 1; } }
+  @keyframes run { 0% { transform: translateX(-110%); } 100% { transform: translateX(260%); } }
+  @media (prefers-color-scheme: dark) {
+    html, body, #splash { background: #0E1513; }
+    #splash { color: #E3EAE6; }
+    #splash .s { color: #DDB461; }
+    #splash .bar { background: rgba(98,185,150,.18); }
+    #splash .bar::after { background: #62B996; }
+  }
+  @media (prefers-reduced-motion: reduce) { #splash img, #splash .bar::after { animation: none; } }
+</style>
+</head>
+<body>
+<div id="splash" role="status"><div class="in"><img src="/logo.webp" alt="" width="132" height="132"><div class="n" id="sp-n">Служба рабочих</div><div class="s" id="sp-s">Свято-Пантелеимонов монастырь</div><div class="bar" aria-hidden="true"></div><div class="off" id="sp-off" hidden>Нет связи с интернетом · Δεν υπάρχει σύνδεση · No internet connection</div></div></div>
+<iframe id="site" title="Служба рабочих — Свято-Пантелеимонов монастырь" allow="clipboard-write; fullscreen; autoplay"></iframe>
+<noscript><p>Для этого экрана нужен JavaScript.</p></noscript>
+<script>
+  /* «Служба рабочих» обители: тот же сайт (Google Apps Script) с app=workers — только экран службы рабочих
+     (вход монаха по коду с почты) и анкета для подрядчиков (stpanteleimon.gr/workers/#form, по-гречески, по-русски, по-английски).
+     Работает и пока сайт закрыт для всех: ключ просмотра не нужен. */
+  (function () {
+    var SITE = "https://script.google.com/macros/s/AKfycbw8GeiHe-gKmS68FWwlqcJmy8rU77qDIHDe_XTDARqmdjhct2NqODonH3mpOKLEUhL4/exec";
+    var KIND = "workers";
+    var hash = location.hash || "", q = new URLSearchParams(location.search);
+    /* анкета подрядчика (…/workers/#form) и ссылка «Ответить» из письма (…/workers/#wr=ГГГГ/НННН) — передаём параметрами:
+       часть адреса после # до экрана сайта не доходит */
+    var form = /^#form/.test(hash) || q.has("form");
+    var wr = (/^#wr=(.+)$/.exec(hash) || [])[1] || q.get("wr") || "";
+    try { wr = decodeURIComponent(wr); } catch (e) { /* как есть */ }
+    if (form) {   /* анкета подрядчика: заставка без русского названия службы */
+      document.getElementById("sp-n").textContent = "Ιερά Μονή Αγίου Παντελεήμονος";
+      document.getElementById("sp-s").textContent = "Εργαζόμενοι · Рабочие · Workers";
+      document.title = "Αίτηση για εργαζομένους — Ι. Μ. Αγίου Παντελεήμονος";
+    }
+    var splash = document.getElementById("splash"), frame = document.getElementById("site");
+    var hide = function () { splash.className = "gone"; };
+    var bip = null, siteWin = null, siteOrigin = "", standalone = false;
+    try { standalone = matchMedia("(display-mode: standalone)").matches || navigator.standalone === true; } catch (e) { /* ignore */ }
+    var ios = /iP(hone|ad|od)/.test(navigator.userAgent) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+    var appState = function () { return standalone ? "installed" : bip ? "prompt" : ios ? "ios" : "none"; };
+    var tellSite = function () { if (siteWin) { try { siteWin.postMessage({ filoxTop: 1, app: appState(), kind: KIND, vw: document.documentElement.clientWidth }, siteOrigin); } catch (e) { /* ignore */ } } };
+    /* ширина экрана — сайту: на iPhone рамка бывает шире экрана, и сайт тогда раскладывается ровно по этой ширине */
+    window.addEventListener("resize", function () { tellSite(); });
+    window.addEventListener("beforeinstallprompt", function (e) { e.preventDefault(); bip = e; tellSite(); });
+    window.addEventListener("appinstalled", function () { bip = null; standalone = true; tellSite(); });
+    if ("serviceWorker" in navigator) window.addEventListener("load", function () { navigator.serviceWorker.register("/sw.js").catch(function () { /* без приложения */ }); });
+    var offline = navigator.onLine === false;
+    if (offline) { document.getElementById("sp-off").hidden = false; window.addEventListener("online", function () { location.reload(); }); }
+    window.addEventListener("message", function (e) {
+      var d = e.data;
+      if (!d || d.filox !== 1 || !/\.googleusercontent\.com$/.test(String(e.origin).replace(/^https:\/\//, "."))) return;
+      if (d.ready) { siteWin = e.source; siteOrigin = e.origin; tellSite(); hide(); }
+      if (d.install && bip) {
+        var p = bip; bip = null;
+        try { p.prompt(); p.userChoice.then(function () { tellSite(); }, function () { tellSite(); }); } catch (er) { tellSite(); }
+      }
+    });
+    frame.addEventListener("load", function () { if (!offline) setTimeout(hide, 3000); });
+    setTimeout(function () { if (!offline) hide(); }, 15000);
+    frame.src = SITE + "?w=1&app=" + KIND + (form ? "&wf=1" : "") + (wr && !form ? "&wr=" + encodeURIComponent(wr) : "");
+  })();
+</script>
+</body>
+</html>
