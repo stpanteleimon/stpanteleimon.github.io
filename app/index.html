@@ -20,7 +20,7 @@
 <link rel="preconnect" href="https://script.google.com">
 <link rel="preconnect" href="https://lh3.googleusercontent.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preload" href="/s/a.ee8bfc7292.bin" as="fetch" crossorigin="anonymous">
+<link rel="preload" href="/" as="fetch" crossorigin="anonymous">
 <style>
   html, body { margin: 0; min-height: 100%; background: #F3F5F1; }
   noscript p { font: 17px/1.5 Georgia, serif; color: #16211D; padding: 24px; }
@@ -66,15 +66,14 @@
      Ключ просмотра приходит в ссылке stpanteleimon.gr/?k=КЛЮЧ и запоминается в этом браузере; без ключа видна страница
      «Сайт готовится к открытию». С сервером (Google Apps Script) страница говорит запросами — запись, вход, календарь мест. */
   (function () {
-    var KIND = "site";
-    var CFG = {"api":"https://script.google.com/macros/s/AKfycbw8GeiHe-gKmS68FWwlqcJmy8rU77qDIHDe_XTDARqmdjhct2NqODonH3mpOKLEUhL4/exec","v":"ee8bfc7292","a":"s/a.ee8bfc7292.bin","d":{"cal_en":"s/d/cal_en.662a7330d9.bin","cal_ro":"s/d/cal_ro.b72f9026f9.bin","cal_ru":"s/d/cal_ru.96fad2e7e2.bin","emblem":"s/d/emblem.c3383bf823.bin","hist_ru":"s/d/hist_ru.d00a765d3f.bin","i18n_de":"s/d/i18n_de.6dd8e45ffa.bin","i18n_el":"s/d/i18n_el.609600d5bc.bin","i18n_en":"s/d/i18n_en.feacd37f81.bin","i18n_fr":"s/d/i18n_fr.39c8560436.bin","i18n_ro":"s/d/i18n_ro.06b2d25215.bin","i18n_sr":"s/d/i18n_sr.4538d680bc.bin","i18n_uk":"s/d/i18n_uk.3eab166b19.bin","krom_base":"s/d/krom_base.be0ffa41e6.bin","krom_de":"s/d/krom_de.4358fb64fe.bin","krom_el":"s/d/krom_el.05bb44eba8.bin","krom_en":"s/d/krom_en.52c853be72.bin","krom_fr":"s/d/krom_fr.9696ea457f.bin","krom_ro":"s/d/krom_ro.1a6135a34a.bin","krom_ru":"s/d/krom_ru.9c0c62916a.bin","krom_sr":"s/d/krom_sr.1712c76a5e.bin","krom_uk":"s/d/krom_uk.3cece0cdf9.bin","lib_pb":"s/d/lib_pb.7e5bfd4ef8.bin","photos_src":"s/d/photos_src.4e165b0db0.bin"},"salt":"QXS13Uu05xQ7UwmlNTgRCQ==","it":150000};
+    var KIND = "site", APP = "", HOME = "";   // APP — рабочее приложение (arch, sluzhba): только свой экран, по-русски
+    var CFG = {"api":"https://script.google.com/macros/s/AKfycbw8GeiHe-gKmS68FWwlqcJmy8rU77qDIHDe_XTDARqmdjhct2NqODonH3mpOKLEUhL4/exec","v":"f7b94c9d3d","a":"s/a.f7b94c9d3d.bin","d":{"cal_en":"s/d/cal_en.662a7330d9.bin","cal_ro":"s/d/cal_ro.b72f9026f9.bin","cal_ru":"s/d/cal_ru.96fad2e7e2.bin","emblem":"s/d/emblem.c3383bf823.bin","hist_ru":"s/d/hist_ru.d00a765d3f.bin","i18n_de":"s/d/i18n_de.6dd8e45ffa.bin","i18n_el":"s/d/i18n_el.609600d5bc.bin","i18n_en":"s/d/i18n_en.feacd37f81.bin","i18n_fr":"s/d/i18n_fr.39c8560436.bin","i18n_ro":"s/d/i18n_ro.06b2d25215.bin","i18n_sr":"s/d/i18n_sr.4538d680bc.bin","i18n_uk":"s/d/i18n_uk.3eab166b19.bin","krom_base":"s/d/krom_base.ac9bfec603.bin","krom_de":"s/d/krom_de.ecb21515bc.bin","krom_el":"s/d/krom_el.11115906dc.bin","krom_en":"s/d/krom_en.de2ad854ad.bin","krom_fr":"s/d/krom_fr.df60e8b81e.bin","krom_ro":"s/d/krom_ro.6c3f83c809.bin","krom_ru":"s/d/krom_ru.f517536be7.bin","krom_sr":"s/d/krom_sr.194f83f684.bin","krom_uk":"s/d/krom_uk.511971de26.bin","lib_pb":"s/d/lib_pb.7e5bfd4ef8.bin","photos_src":"s/d/photos_src.4e165b0db0.bin"},"salt":"QXS13Uu05xQ7UwmlNTgRCQ==","it":150000};
     var LANGS = ["ru", "el", "en", "uk", "sr", "ro", "de", "fr"], hl = "";
     var NAMES = {"ru":["Свято-Пантелеимонов монастырь","Святая Гора Афон · Удел Богородицы"],"el":["Ιερά Μονή Αγίου Παντελεήμονος","Άγιον Όρος · Περιβόλι της Παναγίας"],"en":["St Panteleimon Monastery","Mount Athos · The Garden of the Mother of God"],"uk":["Свято-Пантелеймонів монастир","Свята Гора Афон · Уділ Богородиці"],"sr":["Манастир Светог Пантелејмона","Света Гора Атонска · Врт Пресвете Богородице"],"ro":["Mănăstirea Sfântul Pantelimon","Sfântul Munte Athos · Grădina Maicii Domnului"],"de":["Kloster des hl. Panteleimon","Heiliger Berg Athos · Garten der Gottesmutter"],"fr":["Monastère Saint-Panteleimon","Mont Athos · Jardin de la Mère de Dieu"]};
     var ls = function (k, v) { try { if (v === undefined) return localStorage.getItem(k) || ""; if (v === null) localStorage.removeItem(k); else localStorage.setItem(k, v); } catch (e) { /* без памяти */ } return ""; };
-    hl = ls("hl");
+    hl = APP ? "ru" : ls("hl");
     if (LANGS.indexOf(hl) < 0) { hl = String(navigator.language || "ru").slice(0, 2).toLowerCase(); if (LANGS.indexOf(hl) < 0) hl = "ru"; }
-    document.getElementById("sp-n").textContent = NAMES[hl][0];
-    document.getElementById("sp-s").textContent = NAMES[hl][1];
+    if (!APP) { document.getElementById("sp-n").textContent = NAMES[hl][0]; document.getElementById("sp-s").textContent = NAMES[hl][1]; }
     document.documentElement.lang = hl;
     /* приложение на телефоне: предложение браузера могло прийти раньше страницы — сохраняем его */
     window.addEventListener("beforeinstallprompt", function (e) { e.preventDefault(); window.__bip = e; });
@@ -90,8 +89,8 @@
     if (old) {
       var fr = document.createElement("iframe");
       fr.title = NAMES[hl][0];
-      fr.src = CFG.api + "?w=1" + (k ? "&k=" + encodeURIComponent(k) : "") + (hl !== "ru" ? "&hl=" + hl : "") +
-        (q.get("gt") ? "&gt=" + encodeURIComponent(q.get("gt")) : "") + (location.hash || "");
+      fr.src = CFG.api + "?w=1" + (APP ? "&app=" + APP : "") + (k ? "&k=" + encodeURIComponent(k) : "") + (hl !== "ru" ? "&hl=" + hl : "") +
+        (q.get("gt") ? "&gt=" + encodeURIComponent(q.get("gt")) : "") + (location.hash || (HOME ? "#" + HOME : ""));
       fr.addEventListener("load", function () { setTimeout(function () { splash.style.display = "none"; }, 1500); });
       document.body.appendChild(fr);
       return;
@@ -131,7 +130,10 @@
         }));
       }).then(function (v) { var o = {}; names.forEach(function (n, i) { o[n] = v[i] || ""; }); return o; });
     };
-    window.__STATIC = { api: CFG.api, k: k, kind: KIND, ver: CFG.v, parts: parts };
+    window.__STATIC = { api: CFG.api, k: k, kind: KIND, app: APP, home: HOME, ver: CFG.v, parts: parts };
+    /* рабочее приложение без интернета: страница — из памяти устройства, данные — последние сохранённые, отметки — в очередь;
+       связь вернётся — экран сам перейдёт к настоящему */
+    if (APP && navigator.onLine === false) window.__OFFSHELL = 1;
     var offline = function () { document.getElementById("sp-off").hidden = false; window.addEventListener("online", function () { location.reload(); }); };
     Promise.all([keyP.then(function (key) { return openFile(key, CFG.a); }), hl !== "ru" ? parts(["i18n_" + hl]) : Promise.resolve({})])
       .then(function (r) {

@@ -2,7 +2,12 @@
    Здесь хранится только оболочка: заставка, герб, значки. Сам сайт (Google) и снимки идут мимо — они всегда свежие.
    Без связи открывается сохранённая оболочка или страница «Нет связи с интернетом». */
 const CACHE = 'filox-shell-v4';
-const SITE = 'filox-site-v1';   // файлы самого сайта (/s/…): у каждого в имени отпечаток, старые удаляются сами
+const SITE = 'filox-site-v1';   // файлы самого сайта (/s/…): у каждого в имени отпечаток
+/* у каждой части сайта держим две последние копии (нынешнюю и прежнюю), остальные — удаляем */
+const prune = (c, path) => {
+  const base = path.replace(/\.[0-9a-f]{10}\.bin$/, '');
+  return c.keys().then(ks => { const same = ks.filter(q => new URL(q.url).pathname.replace(/\.[0-9a-f]{10}\.bin$/, '') === base); return Promise.all(same.slice(0, Math.max(0, same.length - 2)).map(q => c.delete(q))); }).catch(() => {});
+};
 const KEEP = ['filox-off'];   // копии экранов архондарика и службы для работы без связи — их кладут сами приложения
 const SHELL = ['/', '/app/', '/logo.webp', '/manifest.webmanifest', '/app/manifest.webmanifest', '/icon-192.png', '/icon-512.png', '/icon-maskable-512.png', '/apple-touch-icon.png', '/favicon-32.png', '/offline.html'];
 /* страницы-оболочки: главная и приложения (/app/, /arch/, /sluzhba/, /workers/) — без связи открываются сохранённые */
@@ -31,7 +36,10 @@ self.addEventListener('fetch', e => {
   }
   if (u.pathname.indexOf('/s/') === 0) {
     /* части сайта: раз скачанный файл больше не меняется — сразу из памяти, без сети */
-    e.respondWith(caches.open(SITE).then(c => c.match(r).then(m => m || fetch(r).then(res => { if (res.ok) c.put(r, res.clone()); return res; }))));
+    e.respondWith(caches.open(SITE).then(c => c.match(r).then(m => m || fetch(r).then(res => {
+      if (res.ok) c.put(r, res.clone()).then(() => prune(c, u.pathname));
+      return res;
+    }))));
     return;
   }
   if (SHELL.indexOf(u.pathname) < 0) return;
