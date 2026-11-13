@@ -140,8 +140,17 @@
         var add = "window.__GK='';";
         var tr = r[1]["i18n_" + hl];
         if (tr) add += "window.I18N=window.I18N||{};window.I18N." + hl + "=" + tr.replace(/<\//g, "<\\/") + ";";
+        /* document.write заменяет всю страницу вместе с головой: манифест приложения, значки и noindex переносим в новую голову —
+           без ссылки на манифест Chrome на Android пишет «This app cannot be installed», а iPhone ставит значок без герба */
+        var keep = "";
+        try {
+          Array.prototype.forEach.call(document.head.querySelectorAll('link[rel="manifest"],link[rel="apple-touch-icon"],link[rel="icon"],meta[name="theme-color"],meta[name="robots"],meta[name="mobile-web-app-capable"],meta[name^="apple-mobile-web-app"]'),
+            function (n) { keep += n.outerHTML; });
+        } catch (e) { keep = ""; }
+        var html = r[0], hm = /<head(\s[^>]*)?>/i.exec(html);
+        html = hm ? html.slice(0, hm.index + hm[0].length) + keep + html.slice(hm.index + hm[0].length) : keep + html;
         document.open();
-        document.write(r[0] + "<script>" + add + "<\/script>");
+        document.write(html + "<script>" + add + "<\/script>");
         document.close();
       }, function (err) {
         var msg = String((err && (err.name + " " + err.message)) || err);
