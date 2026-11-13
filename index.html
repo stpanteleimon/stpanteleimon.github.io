@@ -33,6 +33,11 @@
   #splash .s { font: 500 clamp(.72rem, 1.6vw, .85rem)/1.3 "Fira Sans", "Segoe UI", Roboto, Arial, sans-serif; letter-spacing: .16em; text-transform: uppercase; color: #7E5B0E; }
   #splash .off { max-width: 22rem; font: 1rem/1.5 "Fira Sans", "Segoe UI", Roboto, Arial, sans-serif; color: #56645D; }
   #splash .off[hidden] { display: none; }
+  /* вернулись от Google / Mail.ru — на заставке сразу видно, что идёт вход */
+  #splash .w { display: flex; align-items: center; gap: 10px; margin-top: 6px; font: 500 1rem/1.4 "Fira Sans", "Segoe UI", Roboto, Arial, sans-serif; color: #1C6650; }
+  #splash .w[hidden] { display: none; }
+  #splash .w i { width: 18px; height: 18px; border-radius: 50%; border: 2.5px solid #CFE0D7; border-top-color: #1C6650; animation: spin .8s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
   @keyframes breathe { 0%, 100% { transform: scale(1); opacity: .92; } 50% { transform: scale(1.035); opacity: 1; } }
   /* страница «Сайт готовится к открытию» — пока нет ключа просмотра */
   #soon { position: fixed; inset: 0; display: grid; place-items: center; font: 17px/1.55 Georgia, "Times New Roman", serif; color: #fff;
@@ -52,12 +57,14 @@
     html, body, #splash { background: #0E1513; }
     #splash { color: #E3EAE6; }
     #splash .s { color: #DDB461; }
+    #splash .w { color: #62B996; }
+    #splash .w i { border-color: #17302A; border-top-color: #62B996; }
   }
-  @media (prefers-reduced-motion: reduce) { #splash img { animation: none; } }
+  @media (prefers-reduced-motion: reduce) { #splash img, #splash .w i { animation: none; } }
 </style>
 </head>
 <body>
-<div id="splash" role="status"><div class="in"><img src="/logo.webp" alt="" width="132" height="132"><div class="n" id="sp-n">Свято-Пантелеимонов монастырь</div><div class="s" id="sp-s">Святая Гора Афон · Удел Богородицы</div><div class="off" id="sp-off" hidden>Нет связи с интернетом — сайт откроется, как только связь появится.<br>No internet connection.</div></div></div>
+<div id="splash" role="status"><div class="in"><img src="/logo.webp" alt="" width="132" height="132"><div class="n" id="sp-n">Свято-Пантелеимонов монастырь</div><div class="s" id="sp-s">Святая Гора Афон · Удел Богородицы</div><div class="w" id="sp-w" hidden><i></i><span></span></div><div class="off" id="sp-off" hidden>Нет связи с интернетом — сайт откроется, как только связь появится.<br>No internet connection.</div></div></div>
 <div id="soon" hidden><div class="sh"></div><div class="c"><div class="x">☦</div><h1>Свято-Пантелеимонов монастырь</h1><p class="m">Святая Гора Афон</p><p>Сайт обители готовится к открытию.</p><hr><p class="l">Ἱερὰ Μονὴ Ἁγίου Παντελεήμονος · Ἅγιον Ὄρος<br>Ὁ ἱστότοπος τῆς Μονῆς ἑτοιμάζεται.</p><p class="l">Holy Monastery of St Panteleimon · Mount Athos<br>The monastery website is being prepared.</p></div></div>
 <noscript><p>Свято-Пантелеимонов монастырь. Для сайта нужен JavaScript.</p></noscript>
 <script>
@@ -67,7 +74,7 @@
      «Сайт готовится к открытию». С сервером (Google Apps Script) страница говорит запросами — запись, вход, календарь мест. */
   (function () {
     var KIND = "root", APP = "", HOME = "";   // APP — рабочее приложение (arch, sluzhba): только свой экран, по-русски
-    var CFG = {"api":"https://script.google.com/macros/s/AKfycbw8GeiHe-gKmS68FWwlqcJmy8rU77qDIHDe_XTDARqmdjhct2NqODonH3mpOKLEUhL4/exec","v":"b3f8948e0f","a":"s/a.b3f8948e0f.bin","d":{"cal_en":"s/d/cal_en.662a7330d9.bin","cal_ro":"s/d/cal_ro.b72f9026f9.bin","cal_ru":"s/d/cal_ru.96fad2e7e2.bin","emblem":"s/d/emblem.c3383bf823.bin","hist_ru":"s/d/hist_ru.d00a765d3f.bin","i18n_de":"s/d/i18n_de.6ba2aae257.bin","i18n_el":"s/d/i18n_el.79fde2f2cc.bin","i18n_en":"s/d/i18n_en.e9d1976f68.bin","i18n_fr":"s/d/i18n_fr.b607db7a5e.bin","i18n_ro":"s/d/i18n_ro.4e8b30903c.bin","i18n_sr":"s/d/i18n_sr.a710fbf9d0.bin","i18n_uk":"s/d/i18n_uk.4c5de5682d.bin","krom_base":"s/d/krom_base.a9c310e42d.bin","krom_de":"s/d/krom_de.ecb21515bc.bin","krom_el":"s/d/krom_el.11115906dc.bin","krom_en":"s/d/krom_en.de2ad854ad.bin","krom_fr":"s/d/krom_fr.df60e8b81e.bin","krom_ro":"s/d/krom_ro.6c3f83c809.bin","krom_ru":"s/d/krom_ru.f517536be7.bin","krom_sr":"s/d/krom_sr.194f83f684.bin","krom_uk":"s/d/krom_uk.511971de26.bin","lib_pb":"s/d/lib_pb.7e5bfd4ef8.bin","photos_src":"s/d/photos_src.4e165b0db0.bin","seal":"s/d/seal.a768e46a4a.bin"},"salt":"QXS13Uu05xQ7UwmlNTgRCQ==","it":150000};
+    var CFG = {"api":"https://script.google.com/macros/s/AKfycbw8GeiHe-gKmS68FWwlqcJmy8rU77qDIHDe_XTDARqmdjhct2NqODonH3mpOKLEUhL4/exec","v":"34df51f8c6","a":"s/a.34df51f8c6.bin","d":{"cal_en":"s/d/cal_en.662a7330d9.bin","cal_ro":"s/d/cal_ro.b72f9026f9.bin","cal_ru":"s/d/cal_ru.96fad2e7e2.bin","emblem":"s/d/emblem.c3383bf823.bin","hist_ru":"s/d/hist_ru.d00a765d3f.bin","i18n_de":"s/d/i18n_de.6ba2aae257.bin","i18n_el":"s/d/i18n_el.79fde2f2cc.bin","i18n_en":"s/d/i18n_en.e9d1976f68.bin","i18n_fr":"s/d/i18n_fr.b607db7a5e.bin","i18n_ro":"s/d/i18n_ro.4e8b30903c.bin","i18n_sr":"s/d/i18n_sr.a710fbf9d0.bin","i18n_uk":"s/d/i18n_uk.4c5de5682d.bin","krom_base":"s/d/krom_base.a9c310e42d.bin","krom_de":"s/d/krom_de.ecb21515bc.bin","krom_el":"s/d/krom_el.11115906dc.bin","krom_en":"s/d/krom_en.de2ad854ad.bin","krom_fr":"s/d/krom_fr.df60e8b81e.bin","krom_ro":"s/d/krom_ro.6c3f83c809.bin","krom_ru":"s/d/krom_ru.f517536be7.bin","krom_sr":"s/d/krom_sr.194f83f684.bin","krom_uk":"s/d/krom_uk.511971de26.bin","lib_pb":"s/d/lib_pb.7e5bfd4ef8.bin","photos_src":"s/d/photos_src.4e165b0db0.bin","seal":"s/d/seal.a768e46a4a.bin"},"salt":"QXS13Uu05xQ7UwmlNTgRCQ==","it":150000};
     var LANGS = ["ru", "el", "en", "uk", "sr", "ro", "de", "fr"], hl = "";
     var NAMES = {"ru":["Свято-Пантелеимонов монастырь","Святая Гора Афон · Удел Богородицы"],"el":["Ιερά Μονή Αγίου Παντελεήμονος","Άγιον Όρος · Περιβόλι της Παναγίας"],"en":["St Panteleimon Monastery","Mount Athos · The Garden of the Mother of God"],"uk":["Свято-Пантелеймонів монастир","Свята Гора Афон · Уділ Богородиці"],"sr":["Манастир Светог Пантелејмона","Света Гора Атонска · Врт Пресвете Богородице"],"ro":["Mănăstirea Sfântul Pantelimon","Sfântul Munte Athos · Grădina Maicii Domnului"],"de":["Kloster des hl. Panteleimon","Heiliger Berg Athos · Garten der Gottesmutter"],"fr":["Monastère Saint-Panteleimon","Mont Athos · Jardin de la Mère de Dieu"]};
     var ls = function (k, v) { try { if (v === undefined) return localStorage.getItem(k) || ""; if (v === null) localStorage.removeItem(k); else localStorage.setItem(k, v); } catch (e) { /* без памяти */ } return ""; };
@@ -96,6 +103,22 @@
       return;
     }
     if (CFG.open !== 1 && !k) { soon(); return; }
+    /* вернулись от Google / Mail.ru с меткой ?gt=…: на заставке — «Вход…», а метка сразу уходит на сервер, пока страница
+       расшифровывается; сайт возьмёт готовый ответ (window.__PRE_LOGIN) — вход короче на время загрузки страницы */
+    var gt = APP ? "" : (q.get("gt") || "");
+    if (!/^(m[0-9a-f]{32}|[A-Za-z0-9_-]{8,400}\.[A-Za-z0-9_-]{40,50})$/.test(gt)) gt = "";
+    if (gt) {
+      var SIGN = {"ru":"Входим в вашу учётную запись…","el":"Σύνδεση στον λογαριασμό σας…","en":"Signing you in…","uk":"Входимо у ваш обліковий запис…","sr":"Пријављујемо вас на налог…","ro":"Vă conectăm la cont…","de":"Sie werden angemeldet…","fr":"Connexion à votre compte…"};
+      var sw = document.getElementById("sp-w");
+      if (sw) { sw.lastChild.textContent = SIGN[hl] || SIGN.ru; sw.hidden = false; }
+      try {
+        var pre = fetch(CFG.api, { method: "POST", body: JSON.stringify({ fn: gt.charAt(0) === "m" && gt.indexOf(".") < 0 ? "apiMailruLogin" : "apiGoogleLogin", args: [gt] }),
+          headers: { "Content-Type": "text/plain;charset=utf-8" }, credentials: "omit", redirect: "follow", cache: "no-store" })
+          .then(function (r) { if (!r.ok) throw new Error("HTTP " + r.status); return r.json(); });
+        pre.catch(function () { /* не вышло — сайт спросит сервер сам */ });
+        window.__PRE_LOGIN = { gt: gt, p: pre };
+      } catch (e) { window.__PRE_LOGIN = null; }
+    }
     var b64 = function (s) { var b = atob(s), u = new Uint8Array(b.length); for (var i = 0; i < b.length; i++) u[i] = b.charCodeAt(i); return u; };
     var keyP;
     if (CFG.open === 1) keyP = Promise.resolve(null);
