@@ -88,6 +88,14 @@
       var d = e.data;
       if (!d || d.filox !== 1 || !/\.googleusercontent\.com$/.test(String(e.origin).replace(/^https:\/\//, "."))) return;
       if (d.ready) { siteWin = e.source; siteOrigin = e.origin; tellSite(); hide(); }
+      /* «Поделиться» ссылкой на анкету: внутри рамки Google телефон не даёт открыть «Поделиться» — открываем отсюда */
+      if (d.share && typeof d.share === "object") {
+        var u = String(d.share.url || ""), ok = false;
+        if (/^https:\/\/stpanteleimon\.gr\//.test(u) && navigator.share) {
+          try { navigator.share({ title: String(d.share.title || ""), text: String(d.share.text || ""), url: u }).catch(function () { /* закрыли */ }); ok = true; } catch (er) { ok = false; }
+        }
+        if (siteWin) { try { siteWin.postMessage({ filoxTop: 1, shared: ok ? "yes" : "no" }, siteOrigin); } catch (er2) { /* ignore */ } }
+      }
       if (d.install && bip) {
         var p = bip; bip = null;
         try { p.prompt(); p.userChoice.then(function () { tellSite(); }, function () { tellSite(); }); } catch (er) { tellSite(); }
