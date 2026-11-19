@@ -86,6 +86,8 @@
     window.addEventListener("beforeinstallprompt", function (e) { e.preventDefault(); window.__bip = e; });
     if ("serviceWorker" in navigator) { try { navigator.serviceWorker.register("/sw.js").catch(function () { /* без приложения */ }); } catch (e) { /* ignore */ } }
     var q = new URLSearchParams(location.search);
+    /* вход через Google / Mail.ru начат на второй версии сайта (/v2/) — возвращаемся туда же, с той же меткой */
+    try { var rv = JSON.parse(ls("sp-ret") || "null"); if (rv && /^\/v2\/$/.test(rv.p) && Date.now() - rv.t < 1800000 && (q.get("gt") || q.get("mt"))) { ls("sp-ret", null); location.replace(rv.p + location.search + location.hash); return; } } catch (e) { /* как обычно */ }
     var k = q.get("k") || "";
     if (k && !/^[A-Za-z0-9_-]{8,64}$/.test(k)) k = "";
     if (k) ls("k", k); else k = ls("k");
