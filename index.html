@@ -4,187 +4,90 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Свято-Пантелеимонов монастырь — Святая Гора Афон</title>
-<meta name="description" content="Свято-Пантелеимонов монастырь на Святой Горе Афон: обитель, братия, святыни, богослужения и календарь. Паломникам: Реестр паломников и заявка на ночлег (филоксения).">
-<meta property="og:title" content="Свято-Пантелеимонов монастырь — Святая Гора Афон">
-<meta property="og:description" content="Ἱερὰ Μονὴ Ἁγίου Παντελεήμονος · Holy Monastery of St Panteleimon, Mount Athos">
-<meta name="robots" content="noindex">
-<meta name="theme-color" content="#1C6650">
-<link rel="manifest" href="/app/manifest.webmanifest">
-<link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="Пантелеимон">
-<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#0B130F">
 <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
-<link rel="icon" href="/favicon-48.png" sizes="48x48" type="image/png">
 <link rel="preconnect" href="https://script.google.com">
 <link rel="preconnect" href="https://lh3.googleusercontent.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preload" href="/" as="fetch" crossorigin="anonymous">
 <style>
-  html, body { margin: 0; min-height: 100%; background: #F3F5F1; }
-  noscript p { font: 17px/1.5 Georgia, serif; color: #16211D; padding: 24px; }
-  /* заставка: герб и название — сразу, пока страница расшифровывается (доли секунды) */
-  #splash { position: fixed; inset: 0; display: grid; place-items: center; background: #F3F5F1; color: #16211D;
-    font-family: "Old Standard TT", Georgia, "Times New Roman", serif; text-align: center; }
+  html, body { margin: 0; min-height: 100%; background: #0B130F; }
+  #splash { position: fixed; inset: 0; display: grid; place-items: center; background: #0B130F; color: #F4EFE4; text-align: center;
+    font-family: "Old Standard TT", Georgia, "Times New Roman", serif; }
   #splash .in { display: grid; justify-items: center; gap: 14px; padding: 24px; }
-  #splash img { width: min(132px, 34vw); height: auto; animation: breathe 2.6s ease-in-out infinite; }
+  #splash img { width: min(132px, 34vw); height: auto; animation: breathe 2.6s ease-in-out infinite; filter: brightness(0) invert(1); opacity: .92; }
   #splash .n { font-size: clamp(1.35rem, 3.2vw, 2rem); line-height: 1.2; }
-  #splash .s { font: 500 clamp(.72rem, 1.6vw, .85rem)/1.3 "Fira Sans", "Segoe UI", Roboto, Arial, sans-serif; letter-spacing: .16em; text-transform: uppercase; color: #7E5B0E; }
-  #splash .off { max-width: 22rem; font: 1rem/1.5 "Fira Sans", "Segoe UI", Roboto, Arial, sans-serif; color: #56645D; }
+  #splash .s { font: 500 clamp(.72rem, 1.6vw, .85rem)/1.3 "Fira Sans", "Segoe UI", Roboto, Arial, sans-serif; letter-spacing: .16em; text-transform: uppercase; color: #E9C46A; }
+  #splash .off { max-width: 22rem; font: 1rem/1.5 "Fira Sans", "Segoe UI", Roboto, Arial, sans-serif; color: rgba(244,239,228,.75); }
   #splash .off[hidden] { display: none; }
-  /* вернулись от Google / Mail.ru — на заставке сразу видно, что идёт вход */
-  #splash .w { display: flex; align-items: center; gap: 10px; margin-top: 6px; font: 500 1rem/1.4 "Fira Sans", "Segoe UI", Roboto, Arial, sans-serif; color: #1C6650; }
-  #splash .w[hidden] { display: none; }
-  #splash .w i { width: 18px; height: 18px; border-radius: 50%; border: 2.5px solid #CFE0D7; border-top-color: #1C6650; animation: spin .8s linear infinite; }
-  @keyframes spin { to { transform: rotate(360deg); } }
-  @keyframes breathe { 0%, 100% { transform: scale(1); opacity: .92; } 50% { transform: scale(1.035); opacity: 1; } }
-  /* страница «Сайт готовится к открытию» — пока нет ключа просмотра */
-  #soon { position: fixed; inset: 0; display: grid; place-items: center; font: 17px/1.55 Georgia, "Times New Roman", serif; color: #fff;
-    background: #1c2b25 url("https://lh3.googleusercontent.com/d/1eYOc__khdfUowAneHGfdmIQ8I4yJdomq=w1600") center/cover no-repeat; }
+  @keyframes breathe { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.035); } }
+  #soon { position: fixed; inset: 0; display: grid; place-items: center; font: 17px/1.55 Georgia, "Times New Roman", serif; color: #fff; background: #1c2b25; }
   #soon[hidden] { display: none; }
-  #soon .sh { position: fixed; inset: 0; background: linear-gradient(180deg, rgba(15,25,21,.35), rgba(15,25,21,.72)); }
-  #soon .c { position: relative; max-width: 34rem; margin: 24px; padding: 32px 28px; text-align: center; background: rgba(15,25,21,.55);
-    border: 1px solid rgba(255,255,255,.25); border-radius: 14px; }
-  #soon .x { font-size: 2rem; line-height: 1; margin-bottom: 10px; opacity: .9; }
+  #soon .c { max-width: 34rem; margin: 24px; padding: 32px 28px; text-align: center; border: 1px solid rgba(255,255,255,.25); border-radius: 14px; }
   #soon h1 { font-size: 1.45rem; font-weight: normal; margin: 0 0 4px; }
-  #soon .m { opacity: .85; margin: 0 0 20px; }
   #soon p { margin: 0 0 12px; }
-  #soon hr { border: 0; border-top: 1px solid rgba(255,255,255,.25); margin: 18px auto; width: 60%; }
-  #soon .l { font-size: .95rem; opacity: .9; }
-  iframe { display: block; border: 0; width: 100%; height: 100vh; height: 100dvh; }
-  @media (prefers-color-scheme: dark) {
-    html, body, #splash { background: #0E1513; }
-    #splash { color: #E3EAE6; }
-    #splash .s { color: #DDB461; }
-    #splash .w { color: #62B996; }
-    #splash .w i { border-color: #17302A; border-top-color: #62B996; }
-  }
-  @media (prefers-reduced-motion: reduce) { #splash img, #splash .w i { animation: none; } }
 </style>
 </head>
 <body>
-<div id="splash" role="status"><div class="in"><img src="/logo.webp" alt="" width="132" height="132"><div class="n" id="sp-n">Свято-Пантелеимонов монастырь</div><div class="s" id="sp-s">Святая Гора Афон · Удел Богородицы</div><div class="w" id="sp-w" hidden><i></i><span></span></div><div class="off" id="sp-off" hidden>Нет связи с интернетом — сайт откроется, как только связь появится.<br>No internet connection.</div></div></div>
-<div id="soon" hidden><div class="sh"></div><div class="c"><div class="x">☦</div><h1>Свято-Пантелеимонов монастырь</h1><p class="m">Святая Гора Афон</p><p>Сайт обители готовится к открытию.</p><hr><p class="l">Ἱερὰ Μονὴ Ἁγίου Παντελεήμονος · Ἅγιον Ὄρος<br>Ὁ ἱστότοπος τῆς Μονῆς ἑτοιμάζεται.</p><p class="l">Holy Monastery of St Panteleimon · Mount Athos<br>The monastery website is being prepared.</p></div></div>
+<div id="splash" role="status"><div class="in"><img src="/logo.webp" alt="" width="132" height="132"><div class="n" id="sp-n">Свято-Пантелеимонов монастырь</div><div class="s" id="sp-s">Святая Гора Афон · Удел Богородицы</div><div class="off" id="sp-off" hidden>Нет связи с интернетом — сайт откроется, как только связь появится.</div></div></div>
+<div id="soon" hidden><div class="c"><div style="font-size:2rem">☦</div><h1 id="so-n">Свято-Пантелеимонов монастырь</h1><p id="so-s">Святая Гора Афон</p><p id="so-t">Сайт обители готовится к открытию.</p></div></div>
 <noscript><p>Свято-Пантелеимонов монастырь. Для сайта нужен JavaScript.</p></noscript>
 <script>
-  /* Сайт лежит здесь же (stpanteleimon.gr), а не в рамке Google, — поэтому открывается сразу.
-     Пока сайт закрыт, страница и все её части лежат зашифрованными (AES-GCM, ключ выводится из ключа просмотра).
-     Ключ просмотра приходит в ссылке stpanteleimon.gr/?k=КЛЮЧ и запоминается в этом браузере; без ключа видна страница
-     «Сайт готовится к открытию». С сервером (Google Apps Script) страница говорит запросами — запись, вход, календарь мест. */
-  (function () {
-    var KIND = "root", APP = "", HOME = "";   // APP — рабочее приложение (arch, sluzhba): только свой экран, по-русски
-    var CFG = {"api":"https://script.google.com/macros/s/AKfycbw8GeiHe-gKmS68FWwlqcJmy8rU77qDIHDe_XTDARqmdjhct2NqODonH3mpOKLEUhL4/exec","v":"bd928e40f8","a":"s/a.bd928e40f8.bin","d":{"cal_en":"s/d/cal_en.662a7330d9.bin","cal_ro":"s/d/cal_ro.b72f9026f9.bin","cal_ru":"s/d/cal_ru.96fad2e7e2.bin","emblem":"s/d/emblem.c3383bf823.bin","hist_ru":"s/d/hist_ru.d00a765d3f.bin","i18n_de":"s/d/i18n_de.6ba2aae257.bin","i18n_el":"s/d/i18n_el.79fde2f2cc.bin","i18n_en":"s/d/i18n_en.e9d1976f68.bin","i18n_fr":"s/d/i18n_fr.b607db7a5e.bin","i18n_ro":"s/d/i18n_ro.4e8b30903c.bin","i18n_sr":"s/d/i18n_sr.a710fbf9d0.bin","i18n_uk":"s/d/i18n_uk.4c5de5682d.bin","krom_base":"s/d/krom_base.a9c310e42d.bin","krom_de":"s/d/krom_de.ecb21515bc.bin","krom_el":"s/d/krom_el.11115906dc.bin","krom_en":"s/d/krom_en.de2ad854ad.bin","krom_fr":"s/d/krom_fr.df60e8b81e.bin","krom_ro":"s/d/krom_ro.6c3f83c809.bin","krom_ru":"s/d/krom_ru.f517536be7.bin","krom_sr":"s/d/krom_sr.194f83f684.bin","krom_uk":"s/d/krom_uk.511971de26.bin","lib_pb":"s/d/lib_pb.7e5bfd4ef8.bin","photos_src":"s/d/photos_src.4e165b0db0.bin","seal":"s/d/seal.a768e46a4a.bin"},"salt":"QXS13Uu05xQ7UwmlNTgRCQ==","it":150000};
-    var LANGS = ["ru", "el", "en", "uk", "sr", "ro", "de", "fr"], hl = "";
-    var NAMES = {"ru":["Свято-Пантелеимонов монастырь","Святая Гора Афон · Удел Богородицы"],"el":["Ιερά Μονή Αγίου Παντελεήμονος","Άγιον Όρος · Περιβόλι της Παναγίας"],"en":["St Panteleimon Monastery","Mount Athos · The Garden of the Mother of God"],"uk":["Свято-Пантелеймонів монастир","Свята Гора Афон · Уділ Богородиці"],"sr":["Манастир Светог Пантелејмона","Света Гора Атонска · Врт Пресвете Богородице"],"ro":["Mănăstirea Sfântul Pantelimon","Sfântul Munte Athos · Grădina Maicii Domnului"],"de":["Kloster des hl. Panteleimon","Heiliger Berg Athos · Garten der Gottesmutter"],"fr":["Monastère Saint-Panteleimon","Mont Athos · Jardin de la Mère de Dieu"]};
-    var ls = function (k, v) { try { if (v === undefined) return localStorage.getItem(k) || ""; if (v === null) localStorage.removeItem(k); else localStorage.setItem(k, v); } catch (e) { /* без памяти */ } return ""; };
-    hl = APP ? "ru" : ls("hl");
-    if (LANGS.indexOf(hl) < 0) { hl = String(navigator.language || "ru").slice(0, 2).toLowerCase(); if (LANGS.indexOf(hl) < 0) hl = "ru"; }
-    if (!APP) { document.getElementById("sp-n").textContent = NAMES[hl][0]; document.getElementById("sp-s").textContent = NAMES[hl][1]; }
-    document.documentElement.lang = hl;
-    /* приложение на телефоне: предложение браузера могло прийти раньше страницы — сохраняем его */
-    window.addEventListener("beforeinstallprompt", function (e) { e.preventDefault(); window.__bip = e; });
-    if ("serviceWorker" in navigator) { try { navigator.serviceWorker.register("/sw.js").catch(function () { /* без приложения */ }); } catch (e) { /* ignore */ } }
-    var q = new URLSearchParams(location.search);
-    /* вход через Google / Mail.ru начат на второй версии сайта (/v2/) — возвращаемся туда же, с той же меткой */
-    try { var rv = JSON.parse(ls("sp-ret") || "null"); if (rv && /^\/v2\/$/.test(rv.p) && Date.now() - rv.t < 1800000 && (q.get("gt") || q.get("mt"))) { ls("sp-ret", null); location.replace(rv.p + location.search + location.hash); return; } } catch (e) { /* как обычно */ }
-    var k = q.get("k") || "";
-    if (k && !/^[A-Za-z0-9_-]{8,64}$/.test(k)) k = "";
-    if (k) ls("k", k); else k = ls("k");
-    var splash = document.getElementById("splash");
-    var soon = function () { splash.hidden = true; splash.style.display = "none"; document.getElementById("soon").hidden = false; document.title = "Свято-Пантелеимонов монастырь"; };
-    /* очень старый браузер (нет расшифровки или распаковки) — прежний путь: сайт в рамке Google */
-    var old = !(window.fetch && window.crypto && crypto.subtle && window.TextEncoder && window.DecompressionStream && window.Promise);
-    if (old) {
-      var fr = document.createElement("iframe");
-      fr.title = NAMES[hl][0];
-      fr.src = CFG.api + "?w=1" + (APP ? "&app=" + APP : "") + (k ? "&k=" + encodeURIComponent(k) : "") + (hl !== "ru" ? "&hl=" + hl : "") +
-        (q.get("gt") ? "&gt=" + encodeURIComponent(q.get("gt")) : "") + (location.hash || (HOME ? "#" + HOME : ""));
-      fr.addEventListener("load", function () { setTimeout(function () { splash.style.display = "none"; }, 1500); });
-      document.body.appendChild(fr);
-      return;
-    }
-    if (CFG.open !== 1 && !k) { soon(); return; }
-    /* вернулись от Google / Mail.ru с меткой ?gt=…: на заставке — «Вход…», а метка сразу уходит на сервер, пока страница
-       расшифровывается; сайт возьмёт готовый ответ (window.__PRE_LOGIN) — вход короче на время загрузки страницы */
-    var gt = APP ? "" : (q.get("gt") || "");
-    if (!/^(m[0-9a-f]{32}|[A-Za-z0-9_-]{8,400}\.[A-Za-z0-9_-]{40,50})$/.test(gt)) gt = "";
-    if (gt) {
-      var SIGN = {"ru":"Входим в вашу учётную запись…","el":"Σύνδεση στον λογαριασμό σας…","en":"Signing you in…","uk":"Входимо у ваш обліковий запис…","sr":"Пријављујемо вас на налог…","ro":"Vă conectăm la cont…","de":"Sie werden angemeldet…","fr":"Connexion à votre compte…"};
-      var sw = document.getElementById("sp-w");
-      if (sw) { sw.lastChild.textContent = SIGN[hl] || SIGN.ru; sw.hidden = false; }
-      try {
-        var pre = fetch(CFG.api, { method: "POST", body: JSON.stringify({ fn: gt.charAt(0) === "m" && gt.indexOf(".") < 0 ? "apiMailruLogin" : "apiGoogleLogin", args: [gt] }),
-          headers: { "Content-Type": "text/plain;charset=utf-8" }, credentials: "omit", redirect: "follow", cache: "no-store" })
-          .then(function (r) { if (!r.ok) throw new Error("HTTP " + r.status); return r.json(); });
-        pre.catch(function () { /* не вышло — сайт спросит сервер сам */ });
-        window.__PRE_LOGIN = { gt: gt, p: pre };
-      } catch (e) { window.__PRE_LOGIN = null; }
-    }
-    var b64 = function (s) { var b = atob(s), u = new Uint8Array(b.length); for (var i = 0; i < b.length; i++) u[i] = b.charCodeAt(i); return u; };
-    var keyP;
-    if (CFG.open === 1) keyP = Promise.resolve(null);
-    else {
-      var saved = null;
-      try { saved = JSON.parse(ls("kk") || "null"); } catch (e) { saved = null; }
-      keyP = (saved && saved.s === CFG.salt && saved.k === k)
-        ? crypto.subtle.importKey("raw", b64(saved.r), "AES-GCM", false, ["decrypt"])
-        : crypto.subtle.importKey("raw", new TextEncoder().encode(k), "PBKDF2", false, ["deriveBits"])
-          .then(function (base) { return crypto.subtle.deriveBits({ name: "PBKDF2", salt: b64(CFG.salt), iterations: CFG.it, hash: "SHA-256" }, base, 256); })
-          .then(function (bits) {
-            var u = new Uint8Array(bits), s = "";
-            for (var i = 0; i < u.length; i++) s += String.fromCharCode(u[i]);
-            ls("kk", JSON.stringify({ s: CFG.salt, k: k, r: btoa(s) }));
-            return crypto.subtle.importKey("raw", bits, "AES-GCM", false, ["decrypt"]);
-          });
-    }
-    /* файл: [12 байт IV][шифр] от gzip-сжатого текста; когда сайт откроют — просто gzip */
-    var openFile = function (key, url) {
-      return fetch("/" + url).then(function (r) { if (!r.ok) throw new Error("HTTP " + r.status); return r.arrayBuffer(); })
-        .then(function (buf) { return key ? crypto.subtle.decrypt({ name: "AES-GCM", iv: new Uint8Array(buf, 0, 12) }, key, new Uint8Array(buf, 12)) : buf; })
-        .then(function (gz) { return new Response(new Blob([gz]).stream().pipeThrough(new DecompressionStream("gzip"))).text(); });
-    };
-    var cache = {};
-    var parts = function (names) {
-      return keyP.then(function (key) {
-        return Promise.all(names.map(function (n) {
-          var f = CFG.d[n];
-          if (!f) return "";
-          if (!cache[n]) cache[n] = openFile(key, f).catch(function () { delete cache[n]; return ""; });
-          return cache[n];
-        }));
-      }).then(function (v) { var o = {}; names.forEach(function (n, i) { o[n] = v[i] || ""; }); return o; });
-    };
-    window.__STATIC = { api: CFG.api, k: k, kind: KIND, app: APP, home: HOME, ver: CFG.v, parts: parts };
-    /* рабочее приложение без интернета: страница — из памяти устройства, данные — последние сохранённые, отметки — в очередь;
-       связь вернётся — экран сам перейдёт к настоящему */
-    if (APP && navigator.onLine === false) window.__OFFSHELL = 1;
-    var offline = function () { document.getElementById("sp-off").hidden = false; window.addEventListener("online", function () { location.reload(); }); };
-    if (!APP) parts(["seal"]);   // печать над надписями главной — качаем вместе со страницей, чтобы она не появлялась позже
-    Promise.all([keyP.then(function (key) { return openFile(key, CFG.a); }), hl !== "ru" ? parts(["i18n_" + hl]) : Promise.resolve({})])
-      .then(function (r) {
-        var add = "window.__GK='';";
-        var tr = r[1]["i18n_" + hl];
-        if (tr) add += "window.I18N=window.I18N||{};window.I18N." + hl + "=" + tr.replace(/<\//g, "<\\/") + ";";
-        /* document.write заменяет всю страницу вместе с головой: манифест приложения, значки и noindex переносим в новую голову —
-           без ссылки на манифест Chrome на Android пишет «This app cannot be installed», а iPhone ставит значок без герба */
-        var keep = "";
-        try {
-          Array.prototype.forEach.call(document.head.querySelectorAll('link[rel="manifest"],link[rel="apple-touch-icon"],link[rel="icon"],meta[name="theme-color"],meta[name="robots"],meta[name="mobile-web-app-capable"],meta[name^="apple-mobile-web-app"]'),
-            function (n) { keep += n.outerHTML; });
-        } catch (e) { keep = ""; }
-        var html = r[0], hm = /<head(\s[^>]*)?>/i.exec(html);
-        html = hm ? html.slice(0, hm.index + hm[0].length) + keep + html.slice(hm.index + hm[0].length) : keep + html;
-        document.open();
-        document.write(html + "<script>" + add + "<\/script>");
-        document.close();
-      }, function (err) {
-        var msg = String((err && (err.name + " " + err.message)) || err);
-        if (/OperationError|decrypt/i.test(msg) && CFG.open !== 1) { ls("k", null); ls("kk", null); soon(); return; }   // ключ не подошёл
-        if (navigator.onLine === false || /fetch|network|HTTP 0/i.test(msg)) { offline(); return; }
-        setTimeout(function () { location.reload(); }, 4000);
+/* Вторая версия сайта (stpanteleimon.gr/v2/): та же защита, что у сайта, — страница зашифрована, открывается ключом просмотра
+   (из ссылки ?k=… или сохранённым на этом устройстве, когда сайт уже открывали). */
+(function () {
+  var CFG = {"a": {"ru": "v2/s/a-ru.143da3a5ee.bin", "el": "v2/s/a-el.6f33fde08c.bin", "en": "v2/s/a-en.fd605be9e4.bin", "uk": "v2/s/a-uk.797c3a11f5.bin", "sr": "v2/s/a-sr.2d9e9bd899.bin", "ro": "v2/s/a-ro.821523a86c.bin", "de": "v2/s/a-de.a363d0644f.bin", "fr": "v2/s/a-fr.48598222e8.bin"}, "v": {"vid-av1": "v2/s/v-av1.97475d4d83.bin", "vid-hevc": "v2/s/v-hevc.443334baee.bin", "vid-h264": "v2/s/v-h264.792ed8d158.bin"}, "salt": "QXS13Uu05xQ7UwmlNTgRCQ==", "it": 150000, "sp": {"ru": ["\u0421\u0432\u044f\u0442\u043e-\u041f\u0430\u043d\u0442\u0435\u043b\u0435\u0438\u043c\u043e\u043d\u043e\u0432 \u043c\u043e\u043d\u0430\u0441\u0442\u044b\u0440\u044c", "\u0421\u0432\u044f\u0442\u0430\u044f \u0413\u043e\u0440\u0430 \u0410\u0444\u043e\u043d \u00b7 \u0423\u0434\u0435\u043b \u0411\u043e\u0433\u043e\u0440\u043e\u0434\u0438\u0446\u044b", "\u0421\u0432\u044f\u0442\u0430\u044f \u0413\u043e\u0440\u0430 \u0410\u0444\u043e\u043d", "\u041d\u0435\u0442 \u0441\u0432\u044f\u0437\u0438 \u0441 \u0438\u043d\u0442\u0435\u0440\u043d\u0435\u0442\u043e\u043c \u2014 \u0441\u0430\u0439\u0442 \u043e\u0442\u043a\u0440\u043e\u0435\u0442\u0441\u044f, \u043a\u0430\u043a \u0442\u043e\u043b\u044c\u043a\u043e \u0441\u0432\u044f\u0437\u044c \u043f\u043e\u044f\u0432\u0438\u0442\u0441\u044f.", "\u0421\u0430\u0439\u0442 \u043e\u0431\u0438\u0442\u0435\u043b\u0438 \u0433\u043e\u0442\u043e\u0432\u0438\u0442\u0441\u044f \u043a \u043e\u0442\u043a\u0440\u044b\u0442\u0438\u044e."], "el": ["\u0399\u03b5\u03c1\u03ac \u039c\u03bf\u03bd\u03ae \u0391\u03b3\u03af\u03bf\u03c5 \u03a0\u03b1\u03bd\u03c4\u03b5\u03bb\u03b5\u03ae\u03bc\u03bf\u03bd\u03bf\u03c2", "\u0386\u03b3\u03b9\u03bf\u03bd \u038c\u03c1\u03bf\u03c2 \u00b7 \u03a0\u03b5\u03c1\u03b9\u03b2\u03cc\u03bb\u03b9 \u03c4\u03b7\u03c2 \u03a0\u03b1\u03bd\u03b1\u03b3\u03af\u03b1\u03c2", "\u0386\u03b3\u03b9\u03bf\u03bd \u038c\u03c1\u03bf\u03c2", "\u0394\u03b5\u03bd \u03c5\u03c0\u03ac\u03c1\u03c7\u03b5\u03b9 \u03c3\u03cd\u03bd\u03b4\u03b5\u03c3\u03b7 \u03c3\u03c4\u03bf \u03b4\u03b9\u03b1\u03b4\u03af\u03ba\u03c4\u03c5\u03bf \u2014 \u03bf \u03b9\u03c3\u03c4\u03cc\u03c4\u03bf\u03c0\u03bf\u03c2 \u03b8\u03b1 \u03b1\u03bd\u03bf\u03af\u03be\u03b5\u03b9 \u03bc\u03cc\u03bb\u03b9\u03c2 \u03b5\u03c0\u03b1\u03bd\u03ad\u03bb\u03b8\u03b5\u03b9 \u03b7 \u03c3\u03cd\u03bd\u03b4\u03b5\u03c3\u03b7.", "\u039f \u03b9\u03c3\u03c4\u03cc\u03c4\u03bf\u03c0\u03bf\u03c2 \u03c4\u03b7\u03c2 \u039c\u03bf\u03bd\u03ae\u03c2 \u03b5\u03c4\u03bf\u03b9\u03bc\u03ac\u03b6\u03b5\u03c4\u03b1\u03b9 \u03bd\u03b1 \u03b1\u03bd\u03bf\u03af\u03be\u03b5\u03b9."], "en": ["Saint Panteleimon Monastery", "Mount Athos \u00b7 The Garden of the Mother of God", "Mount Athos", "No internet connection \u2014 the site will open as soon as you are back online.", "The monastery\u2019s website is being prepared for opening."], "uk": ["\u0421\u0432\u044f\u0442\u043e-\u041f\u0430\u043d\u0442\u0435\u043b\u0435\u0439\u043c\u043e\u043d\u0456\u0432 \u043c\u043e\u043d\u0430\u0441\u0442\u0438\u0440", "\u0421\u0432\u044f\u0442\u0430 \u0413\u043e\u0440\u0430 \u0410\u0444\u043e\u043d \u00b7 \u0423\u0434\u0456\u043b \u0411\u043e\u0433\u043e\u0440\u043e\u0434\u0438\u0446\u0456", "\u0421\u0432\u044f\u0442\u0430 \u0413\u043e\u0440\u0430 \u0410\u0444\u043e\u043d", "\u041d\u0435\u043c\u0430\u0454 \u0437\u0432\u2019\u044f\u0437\u043a\u0443 \u0437 \u0456\u043d\u0442\u0435\u0440\u043d\u0435\u0442\u043e\u043c \u2014 \u0441\u0430\u0439\u0442 \u0432\u0456\u0434\u043a\u0440\u0438\u0454\u0442\u044c\u0441\u044f, \u0449\u043e\u0439\u043d\u043e \u0437\u0432\u2019\u044f\u0437\u043e\u043a \u0437\u2019\u044f\u0432\u0438\u0442\u044c\u0441\u044f.", "\u0421\u0430\u0439\u0442 \u043e\u0431\u0438\u0442\u0435\u043b\u0456 \u0433\u043e\u0442\u0443\u0454\u0442\u044c\u0441\u044f \u0434\u043e \u0432\u0456\u0434\u043a\u0440\u0438\u0442\u0442\u044f."], "sr": ["\u041c\u0430\u043d\u0430\u0441\u0442\u0438\u0440 \u0421\u0432\u0435\u0442\u043e\u0433 \u041f\u0430\u043d\u0442\u0435\u043b\u0435\u0458\u043c\u043e\u043d\u0430", "\u0421\u0432\u0435\u0442\u0430 \u0413\u043e\u0440\u0430 \u0410\u0442\u043e\u043d\u0441\u043a\u0430 \u00b7 \u0412\u0440\u0442 \u041f\u0440\u0435\u0441\u0432\u0435\u0442\u0435 \u0411\u043e\u0433\u043e\u0440\u043e\u0434\u0438\u0446\u0435", "\u0421\u0432\u0435\u0442\u0430 \u0413\u043e\u0440\u0430 \u0410\u0442\u043e\u043d\u0441\u043a\u0430", "\u041d\u0435\u043c\u0430 \u0432\u0435\u0437\u0435 \u0441\u0430 \u0438\u043d\u0442\u0435\u0440\u043d\u0435\u0442\u043e\u043c \u2014 \u0441\u0430\u0458\u0442 \u045b\u0435 \u0441\u0435 \u043e\u0442\u0432\u043e\u0440\u0438\u0442\u0438 \u0447\u0438\u043c \u0441\u0435 \u0432\u0435\u0437\u0430 \u0443\u0441\u043f\u043e\u0441\u0442\u0430\u0432\u0438.", "\u0421\u0430\u0458\u0442 \u043c\u0430\u043d\u0430\u0441\u0442\u0438\u0440\u0430 \u0441\u0435 \u043f\u0440\u0438\u043f\u0440\u0435\u043c\u0430 \u0437\u0430 \u043e\u0442\u0432\u0430\u0440\u0430\u045a\u0435."], "ro": ["M\u0103n\u0103stirea Sf\u00e2ntul Pantelimon", "Sf\u00e2ntul Munte Athos \u00b7 Gr\u0103dina Maicii Domnului", "Sf\u00e2ntul Munte Athos", "Nu exist\u0103 conexiune la internet \u2014 site-ul se va deschide imediat ce revine conexiunea.", "Site-ul m\u0103n\u0103stirii se preg\u0103te\u0219te de deschidere."], "de": ["Kloster des hl. Panteleimon", "Heiliger Berg Athos \u00b7 Garten der Gottesmutter", "Heiliger Berg Athos", "Keine Internetverbindung \u2013 die Seite \u00f6ffnet sich, sobald die Verbindung wieder besteht.", "Die Website des Klosters wird f\u00fcr die Er\u00f6ffnung vorbereitet."], "fr": ["Monast\u00e8re Saint-Panteleimon", "Mont Athos \u00b7 Jardin de la M\u00e8re de Dieu", "Mont Athos", "Pas de connexion internet \u2014 le site s\u2019ouvrira d\u00e8s que la connexion sera r\u00e9tablie.", "Le site du monast\u00e8re est en pr\u00e9paration."]}};
+  var ls = function (k, v) { try { if (v === undefined) return localStorage.getItem(k) || ""; if (v === null) localStorage.removeItem(k); else localStorage.setItem(k, v); } catch (e) { /* без памяти */ } return ""; };
+  var q = new URLSearchParams(location.search);
+  /* язык (Папа 18.11: 8 языков): ?hl=… → выбранный раньше (общий с первой версией сайта) → язык устройства → русский */
+  var PAGES = typeof CFG.a === "string" ? { ru: CFG.a } : CFG.a, LG = Object.keys(PAGES), lg = (q.get("hl") || "").toLowerCase();
+  if (LG.indexOf(lg) >= 0) ls("filox-lang", JSON.stringify(lg));
+  else { try { lg = JSON.parse(ls("filox-lang") || "null"); } catch (e) { lg = null; } }
+  if (LG.indexOf(lg) < 0) { var nv = (navigator.language || "ru").slice(0, 2).toLowerCase(); lg = LG.indexOf(nv) >= 0 ? nv : "ru"; }
+  document.documentElement.lang = lg;
+  var SP = (CFG.sp || {})[lg];
+  if (SP) { var st = function (id, x) { var el = document.getElementById(id); if (el && x) el.textContent = x; };
+    st("sp-n", SP[0]); st("so-n", SP[0]); st("sp-s", SP[1]); st("so-s", SP[2]); st("sp-off", SP[3]); st("so-t", SP[4]); }
+  var k = q.get("k") || "";
+  if (k && !/^[A-Za-z0-9_-]{8,64}$/.test(k)) k = "";
+  if (k) ls("k", k); else k = ls("k");
+  var soon = function () { var s = document.getElementById("splash"); s.style.display = "none"; document.getElementById("soon").hidden = false; };
+  if (!(window.fetch && window.crypto && crypto.subtle && window.TextEncoder && window.DecompressionStream)) { soon(); return; }
+  if (!k) { soon(); return; }
+  var b64 = function (s) { var b = atob(s), u = new Uint8Array(b.length); for (var i = 0; i < b.length; i++) u[i] = b.charCodeAt(i); return u; };
+  var saved = null;
+  try { saved = JSON.parse(ls("kk") || "null"); } catch (e) { saved = null; }
+  var keyP = (saved && saved.s === CFG.salt && saved.k === k)
+    ? crypto.subtle.importKey("raw", b64(saved.r), "AES-GCM", false, ["decrypt"])
+    : crypto.subtle.importKey("raw", new TextEncoder().encode(k), "PBKDF2", false, ["deriveBits"])
+      .then(function (base) { return crypto.subtle.deriveBits({ name: "PBKDF2", salt: b64(CFG.salt), iterations: CFG.it, hash: "SHA-256" }, base, 256); })
+      .then(function (bits) {
+        var u = new Uint8Array(bits), s = "";
+        for (var i = 0; i < u.length; i++) s += String.fromCharCode(u[i]);
+        ls("kk", JSON.stringify({ s: CFG.salt, k: k, r: btoa(s) }));
+        return crypto.subtle.importKey("raw", bits, "AES-GCM", false, ["decrypt"]);
       });
-  })();
+  var raw = function (key, url) {
+    return fetch("/" + url).then(function (r) { if (!r.ok) throw new Error("HTTP " + r.status); return r.arrayBuffer(); })
+      .then(function (buf) { return crypto.subtle.decrypt({ name: "AES-GCM", iv: new Uint8Array(buf, 0, 12) }, key, new Uint8Array(buf, 12)); });
+  };
+  /* видео трапезы — по запросу страницы (когда до него доходят), расшифрованным */
+  var vids = {};
+  window.__V2 = { k: k, vid: function (n) {
+    if (!CFG.v[n]) return Promise.reject(new Error("no video"));
+    if (!vids[n]) vids[n] = keyP.then(function (key) { return raw(key, CFG.v[n]); });
+    return vids[n];
+  } };
+  window.__V2.lang = lg;
+  keyP.then(function (key) { return raw(key, PAGES[lg] || PAGES.ru); })
+    .then(function (gz) { return new Response(new Blob([gz]).stream().pipeThrough(new DecompressionStream("gzip"))).text(); })
+    .then(function (html) { document.open(); document.write(html); document.close(); }, function (err) {
+      var msg = String((err && (err.name + " " + err.message)) || err);
+      if (/OperationError|decrypt/i.test(msg)) { ls("k", null); ls("kk", null); soon(); return; }   // ключ не подошёл
+      if (navigator.onLine === false || /fetch|network|HTTP 0/i.test(msg)) { document.getElementById("sp-off").hidden = false; window.addEventListener("online", function () { location.reload(); }); return; }
+      setTimeout(function () { location.reload(); }, 4000);
+    });
+})();
 </script>
 </body>
 </html>
