@@ -12,7 +12,8 @@ const KEEP = ['filox-off'];   // копии экранов архондарик�
 const SHELL = ['/', '/app/', '/logo.webp', '/manifest.webmanifest', '/app/manifest.webmanifest', '/icon-192.png', '/icon-512.png', '/icon-maskable-512.png', '/apple-touch-icon.png', '/favicon-32.png', '/offline.html'];
 /* страницы-оболочки: главная и приложения (/app/, /arch/, /sluzhba/, /workers/) — без связи открываются сохранённые */
 const SHELL_PAGE = { '/': '/', '/index.html': '/', '/app/': '/app/', '/app/index.html': '/app/', '/arch/': '/arch/', '/arch/index.html': '/arch/',
-  '/sluzhba/': '/sluzhba/', '/sluzhba/index.html': '/sluzhba/', '/workers/': '/workers/', '/workers/index.html': '/workers/' };
+  '/sluzhba/': '/sluzhba/', '/sluzhba/index.html': '/sluzhba/', '/workers/': '/workers/', '/workers/index.html': '/workers/',
+  '/v2/': '/v2/', '/v2/index.html': '/v2/', '/v2/app/': '/v2/app/', '/v2/app/index.html': '/v2/app/' };
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(CACHE).then(c => c.addAll(SHELL)).then(() => self.skipWaiting()));
 });
@@ -34,7 +35,7 @@ self.addEventListener('fetch', e => {
       .then(m => m || caches.match('/offline.html'))));
     return;
   }
-  if (u.pathname.indexOf('/s/') === 0) {
+  if (u.pathname.indexOf('/s/') === 0 || u.pathname.indexOf('/v2/s/') === 0) {
     /* части сайта: раз скачанный файл больше не меняется — сразу из памяти, без сети */
     e.respondWith(caches.open(SITE).then(c => c.match(r).then(m => m || fetch(r).then(res => {
       if (res.ok) c.put(r, res.clone()).then(() => prune(c, u.pathname));
