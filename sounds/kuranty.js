@@ -99,6 +99,63 @@
   var box0 = document.getElementById('ar-tv');
   if (box0 && window.MutationObserver) new MutationObserver(function () { var b = box0.querySelector('[data-ar-kur]'); if (!b) arBtn(); }).observe(box0, { childList: true });
 
+  /* ---------- колокол перед службами (Папа 21.11, 21:34: «чтобы везде было одинаково» — как в приложении и во второй версии) ----------
+     За 30 минут до службы — 33 удара; перед бдением, перед воскресной утренней службой и перед литургией после бдения — весь
+     праздничный звон (12 мин); в день бдения после утренней трапезы (трапеза — 15 минут) — 12 ударов. Записи — те же, что в приложении
+     (sounds/kolokol33.mp3, zvon.mp3, kolokol12.mp3); играет <audio>. Страница даёт: p (расписание ночи), k (прежние удары — запасной путь),
+     o() (колокол включён / табло звонит), x(e) (до какого мига звучит — для кнопки «остановить»); сюда она зовёт b(служба), m(минуты, разница), s(). */
+  var BF = { n: 'kolokol33.mp3', v: 'zvon.mp3', 12: 'kolokol12.mp3' }, aud = null;
+  var idxOf = function (ymd) { var a = ymd.split('-').map(Number); return Math.round(Date.UTC(a[0], a[1] - 1, a[2]) / 864e5); };
+  var ymdOf = function (i) { return new Date(i * 864e5).toISOString().slice(0, 10); };
+  function kindOf(s) {
+    var sun = s.D && new Date((idxOf(s.D) + 1) * 864e5 + 432e5).getUTCDay() === 0;
+    return s.svc === 'vigil' || s.svc === 'liturgy' || (s.svc === 'morning' && sun) ? 'v' : 'n';
+  }
+  function audio(k) {
+    if (aud && aud._k === k) return aud;
+    if (aud) { try { aud.pause(); } catch (e) { /* ignore */ } }
+    var a = new Audio(); a._k = k; a.preload = 'auto'; a.src = 'https://stpanteleimon.gr/sounds/' + BF[k];
+    a.addEventListener('playing', function () { var c = K.ctx(); if (c && K.x) K.x(c.currentTime + Math.max(1, (a.duration || 900) - a.currentTime)); });
+    a.addEventListener('pause', function () { if (K.x) K.x(0); });
+    a.addEventListener('ended', function () { if (K.x) K.x(0); });
+    return (aud = a);
+  }
+  function ring(k) {
+    if (mode && K.tv() && mod(minOf(K.now()), 15) < 0.05) { setTimeout(function () { ring(k); }, 3000); return; }   // перезвон этой четверти только начинается — колокол за ним
+    var a = audio(k), c = K.ctx(), w = c ? Math.max(0, (K.e || 0) - c.currentTime) : 0;
+    setTimeout(function () {
+      try { a.currentTime = 0; } catch (e) { /* ignore */ }
+      var p = a.play();
+      if (p && p.catch) p.catch(function () { if (K.k) K.k(12).catch(function () {}); });   // браузер не дал звук записью — прежние удары
+    }, w * 1000 + 60);
+  }
+  K.s = function () { if (aud) { try { aud.pause(); aud.currentTime = 0; } catch (e) { /* ignore */ } } };
+  K.b = function (s) { ring(kindOf(s)); };
+  /* D — ночь бдения (бдение вечером дня D); трапеза — утром того же дня, по расписанию ночи D−1; ответ — абсолютные минуты, как nowAbs */
+  function mealAt(D, dif) {
+    if (!K.p(D, dif).vigil) return null;
+    var D0 = ymdOf(idxOf(D) - 1), rows = K.p(D0, dif).rows, vg = K.p(D0, dif).vigil, m = null, r = null, i;
+    var find = function (f) { for (i = 0; i < rows.length; i++) if (f(rows[i])) return rows[i]; return null; };
+    if (vg) { r = find(function (x) { return x.svc === 'liturgy'; }); if (r && r.c0 != null) m = r.c0 + r.dur; }   // накануне тоже бдение — трапеза после литургии
+    else {
+      r = find(function (x) { return x.k === 'breakfast' && x.c0 != null; });   // зимой в будни — точное время трапезы
+      if (r) m = r.c0;
+      else { r = find(function (x) { return x.svc === 'morning'; }); if (r && r.c0 != null) m = r.c0 + r.dur; }   // иначе — сразу после утренней службы
+    }
+    return m == null ? null : idxOf(D0) * 1440 + m + 15;
+  }
+  K.m = function (nowAbs, dif) {
+    if (!K.o || !K.o() || dif == null || !K.p) return;
+    var at = mealAt(ymdOf(Math.floor(nowAbs / 1440)), dif);
+    if (at == null) return;
+    var left = at - nowAbs;
+    if (left > 0 && left < 3) { if (!aud || aud.paused) audio('12'); return; }   // за 3 минуты — запись подгружается
+    if (left > 0 || left <= -5) return;
+    var key = 'm' + at;
+    try { if (localStorage.getItem('svc-bell-meal') === key) return; localStorage.setItem('svc-bell-meal', key); } catch (e) { return; }
+    ring('12');
+  };
+
   setInterval(tick, 1000);
   setInterval(stLoad, 60000);
   stLoad(); tick();
