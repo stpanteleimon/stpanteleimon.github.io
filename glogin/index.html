@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#1C6650">
+<title>Вход через Google — Свято-Пантелеимонов монастырь</title>
+<link rel="icon" href="/favicon-32.png">
+<style>
+  html, body { margin: 0; min-height: 100%; }
+  body { min-height: 100vh; min-height: 100svh; display: flex; align-items: center; justify-content: center; padding: 24px; box-sizing: border-box;
+    background: #F6EFE2; color: #1F2A24; font: 17px/1.5 Georgia, "Times New Roman", serif; text-align: center; }
+  .c { max-width: 30rem; width: 100%; }
+  img.seal { width: 84px; height: 84px; border-radius: 50%; box-shadow: 0 4px 18px rgba(0, 0, 0, .12); background: #fff; }
+  h1 { margin: 18px 0 12px; font-size: 1.6rem; font-weight: 400; color: #1C6650; }
+  p { margin: 0 0 24px; }
+  #gsi { display: flex; justify-content: center; min-height: 48px; }
+  .btn { padding: 15px 30px; border: 0; border-radius: 999px; background: #1C6650; color: #fff; font: inherit; font-size: 1.05rem; font-weight: 600; cursor: pointer; }
+  .alt { margin-top: 28px; font-size: .92rem; }
+  .alt a, .home a { color: #1C6650; }
+  .err { color: #A3262C; margin-top: 18px; }
+  .wait { color: #1C6650; }
+</style>
+</head>
+<body>
+<div class="c">
+  <img class="seal" src="/logo.webp" alt="" width="84" height="84">
+  <h1 id="t">Вход через Google</h1>
+  <p id="h">Выберите аккаунт Google — после этого вы вернётесь на сайт обители.</p>
+  <div id="gsi"></div>
+  <p class="err" id="e" hidden></p>
+  <p class="alt"><a id="alt" href="#">Не получается? Другой способ входа</a></p>
+</div>
+<script>
+/* Вход через Google на самом сайте stpanteleimon.gr (Папа 22.11): без страницы Apps Script и без полосы
+   «Это приложение создано пользователем Google Apps Script». Кнопка Google открывает нижнюю панель Google (FedCM);
+   ключ входа Google проверяет сервер обители (apiGoogleIdLogin), а сайт берёт готовый ответ (sp-gi) — как после прежнего входа. */
+(function () {
+  'use strict';
+  var API = ['https:', '', 'script.google.com', 'macros', 's', 'AKfycbw8GeiHe-gKmS68FWwlqcJmy8rU77qDIHDe_XTDARqmdjhct2NqODonH3mpOKLEUhL4', 'exec'].join('/');
+  var OLD = ['https:', '', 'script.google.com', 'macros', 's', 'AKfycbwOBCiCe7nfBc169Eib32GAYZDcLQIaxJBxVQdtR47-FGWVL7jF7PjuFYGEAAw6-D0vAg', 'exec'].join('/');
+  var CLIENT = '272039017793-s8niolup6vo0le6r35tflnqgb0vaqaao.apps.googleusercontent.com';
+  var T = {
+    ru: ['Вход через Google', 'Выберите аккаунт Google — после этого вы вернётесь на сайт обители.', 'Не получается? Другой способ входа', 'Выбрать аккаунт Google', 'Входим…', 'Не удалось войти через Google. Попробуйте ещё раз или выберите другой способ входа.'],
+    el: ['Σύνδεση με Google', 'Επιλέξτε λογαριασμό Google — μετά θα επιστρέψετε στον ιστότοπο της Μονής.', 'Δεν λειτουργεί; Άλλος τρόπος σύνδεσης', 'Επιλογή λογαριασμού Google', 'Σύνδεση…', 'Η σύνδεση με Google απέτυχε. Δοκιμάστε ξανά ή επιλέξτε άλλο τρόπο σύνδεσης.'],
+    en: ['Sign in with Google', 'Choose your Google account — then you will return to the monastery website.', 'Not working? Another way to sign in', 'Choose a Google account', 'Signing in…', 'Could not sign in with Google. Please try again or choose another way to sign in.'],
+    uk: ['Вхід через Google', 'Виберіть обліковий запис Google — після цього ви повернетеся на сайт обителі.', 'Не виходить? Інший спосіб входу', 'Вибрати обліковий запис Google', 'Входимо…', 'Не вдалося увійти через Google. Спробуйте ще раз або виберіть інший спосіб входу.'],
+    sr: ['Пријава преко Google-а', 'Изаберите Google налог — после тога се враћате на сајт манастира.', 'Не успева? Други начин пријаве', 'Изаберите Google налог', 'Пријављујемо…', 'Пријава преко Google-а није успела. Покушајте поново или изаберите други начин пријаве.'],
+    ro: ['Conectare cu Google', 'Alegeți contul Google — apoi reveniți pe site-ul mănăstirii.', 'Nu merge? Alt mod de conectare', 'Alegeți contul Google', 'Se conectează…', 'Conectarea cu Google nu a reușit. Încercați din nou sau alegeți alt mod de conectare.'],
+    de: ['Mit Google anmelden', 'Wählen Sie Ihr Google-Konto — danach kehren Sie zur Website des Klosters zurück.', 'Klappt es nicht? Anders anmelden', 'Google-Konto auswählen', 'Anmeldung…', 'Die Anmeldung mit Google ist fehlgeschlagen. Bitte versuchen Sie es erneut oder wählen Sie einen anderen Weg.'],
+    fr: ['Se connecter avec Google', 'Choisissez votre compte Google — vous reviendrez ensuite sur le site du monastère.', 'Ça ne marche pas ? Autre moyen de connexion', 'Choisir un compte Google', 'Connexion…', 'La connexion avec Google a échoué. Réessayez ou choisissez un autre moyen de connexion.']
+  };
+  var q = new URLSearchParams(location.search);
+  var lang = T[q.get('l')] ? q.get('l') : 'ru', L = T[lang];
+  var k = /^[A-Za-z0-9_-]{8,64}$/.test(q.get('k') || '') ? q.get('k') : '';
+  var $ = function (id) { return document.getElementById(id); };
+  document.documentElement.lang = lang; document.title = L[0] + ' — stpanteleimon.gr';
+  $('t').textContent = L[0]; $('h').textContent = L[1]; $('alt').textContent = L[2];
+  $('alt').href = OLD + '?l=' + lang + (k ? '&k=' + encodeURIComponent(k) : '') + '&w=1';
+  var back = function (gt) { location.replace('/?gt=' + encodeURIComponent(gt) + (k ? '&k=' + encodeURIComponent(k) : '') + '#filoxenia'); };
+  var fail = function () { $('e').textContent = L[5]; $('e').hidden = false; $('h').textContent = L[1]; $('h').className = ''; };
+  var rnd = function (n) { var a = new Uint8Array(n), c = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_', s = ''; crypto.getRandomValues(a); for (var i = 0; i < n; i++) s += c[a[i] % 64]; return s; };
+  function done(resp) {
+    var cred = resp && resp.credential; if (!cred) return;
+    $('e').hidden = true; $('h').textContent = L[4]; $('h').className = 'wait'; $('gsi').hidden = true;
+    fetch(API, { method: 'POST', body: JSON.stringify({ fn: 'apiGoogleIdLogin', args: [cred] }), headers: { 'Content-Type': 'text/plain;charset=utf-8' }, credentials: 'omit', redirect: 'follow', cache: 'no-store' })
+      .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+      .then(function (o) {
+        var r = o && o.ok ? o.r : null;
+        if (!r || !r.ok) { $('gsi').hidden = false; fail(); return; }
+        /* ответ сервера (вошёл — или новый паломник: анкета Реестра с его почтой) — сайту: загрузчик возьмёт его по этой метке */
+        var tok = 'gi' + rnd(22) + '.' + rnd(43);
+        try { localStorage.setItem('sp-gi', JSON.stringify({ tok: tok, t: Date.now(), o: o })); } catch (e) { /* без памяти — не выйдет */ }
+        back(tok);
+      })
+      .catch(function () { $('gsi').hidden = false; fail(); });
+  }
+  var fedBtn = false;
+  try { var pr = navigator.credentials && navigator.credentials.get({ identity: Object.defineProperty({}, 'mode', { get: function () { fedBtn = true; return 'active'; } }) }); if (pr && pr.catch) pr.catch(function () {}); } catch (e) { /* нет FedCM */ }
+  var sc = document.createElement('script'); sc.src = 'https://accounts.google.com/gsi/client'; sc.async = true;
+  sc.onload = function () {
+    try {
+      var G = google.accounts.id;
+      G.initialize({ client_id: CLIENT, callback: done, auto_select: false, cancel_on_tap_outside: false, context: 'signin', use_fedcm_for_prompt: true, use_fedcm_for_button: fedBtn, button_auto_select: false });
+      if (fedBtn) G.renderButton($('gsi'), { type: 'standard', theme: 'filled_blue', size: 'large', shape: 'pill', text: 'continue_with', logo_alignment: 'left', locale: lang, width: 300 });
+      else {
+        var b = document.createElement('button'); b.type = 'button'; b.className = 'btn'; b.textContent = L[3];
+        b.addEventListener('click', function () { try { G.prompt(); } catch (e) { location.href = $('alt').href; } });
+        $('gsi').appendChild(b); G.prompt();
+      }
+    } catch (e) { fail(); }
+  };
+  sc.onerror = function () { location.replace($('alt').href); };   // Google не загрузился — прежний вход
+  document.head.appendChild(sc);
+})();
+</script>
+</body>
+</html>
