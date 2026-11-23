@@ -1,99 +1,223 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ru">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Свято-Пантелеимонов монастырь — Святая Гора Афон</title>
+<meta name="description" content="Свято-Пантелеимонов монастырь на Святой Горе Афон: обитель, братия, святыни, богослужения и календарь. Паломникам: Реестр паломников и заявка на ночлег (филоксения).">
+<meta property="og:title" content="Свято-Пантелеимонов монастырь — Святая Гора Афон">
+<meta property="og:description" content="Ἱερὰ Μονὴ Ἁγίου Παντελεήμονος · Holy Monastery of St Panteleimon, Mount Athos">
 <meta name="robots" content="noindex">
 <meta name="theme-color" content="#1C6650">
-<title>Вход через Google — Свято-Пантелеимонов монастырь</title>
-<link rel="icon" href="/favicon-32.png">
+<link rel="manifest" href="/app/manifest.webmanifest">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Пантелеимон">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="/favicon-48.png" sizes="48x48" type="image/png">
+<link rel="preconnect" href="https://script.google.com">
+<link rel="preconnect" href="https://lh3.googleusercontent.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" href="/" as="fetch" crossorigin="anonymous">
 <style>
-  html, body { margin: 0; min-height: 100%; }
-  body { min-height: 100vh; min-height: 100svh; display: flex; align-items: center; justify-content: center; padding: 24px; box-sizing: border-box;
-    background: #F6EFE2; color: #1F2A24; font: 17px/1.5 Georgia, "Times New Roman", serif; text-align: center; }
-  .c { max-width: 30rem; width: 100%; }
-  img.seal { width: 84px; height: 84px; border-radius: 50%; box-shadow: 0 4px 18px rgba(0, 0, 0, .12); background: #fff; }
-  h1 { margin: 18px 0 12px; font-size: 1.6rem; font-weight: 400; color: #1C6650; }
-  p { margin: 0 0 24px; }
-  #gsi { display: flex; justify-content: center; min-height: 48px; }
-  .btn { padding: 15px 30px; border: 0; border-radius: 999px; background: #1C6650; color: #fff; font: inherit; font-size: 1.05rem; font-weight: 600; cursor: pointer; }
-  .alt { margin-top: 28px; font-size: .92rem; }
-  .alt a, .home a { color: #1C6650; }
-  .err { color: #A3262C; margin-top: 18px; }
-  .wait { color: #1C6650; }
+  html, body { margin: 0; min-height: 100%; background: #F3F5F1; }
+  noscript p { font: 17px/1.5 Georgia, serif; color: #16211D; padding: 24px; }
+  /* заставка: герб и название — сразу, пока страница расшифровывается (доли секунды) */
+  #splash { position: fixed; inset: 0; display: grid; place-items: center; background: #F3F5F1; color: #16211D;
+    font-family: "Old Standard TT", Georgia, "Times New Roman", serif; text-align: center; }
+  #splash .in { display: grid; justify-items: center; gap: 14px; padding: 24px; }
+  #splash img { width: min(132px, 34vw); height: auto; animation: breathe 2.6s ease-in-out infinite; }
+  #splash .n { font-size: clamp(1.35rem, 3.2vw, 2rem); line-height: 1.2; }
+  #splash .s { font: 500 clamp(.72rem, 1.6vw, .85rem)/1.3 "Fira Sans", "Segoe UI", Roboto, Arial, sans-serif; letter-spacing: .16em; text-transform: uppercase; color: #7E5B0E; }
+  #splash .off { max-width: 22rem; font: 1rem/1.5 "Fira Sans", "Segoe UI", Roboto, Arial, sans-serif; color: #56645D; }
+  #splash .off[hidden] { display: none; }
+  /* вернулись от Google / Mail.ru — на заставке сразу видно, что идёт вход */
+  #splash .w { display: flex; align-items: center; gap: 10px; margin-top: 6px; font: 500 1rem/1.4 "Fira Sans", "Segoe UI", Roboto, Arial, sans-serif; color: #1C6650; }
+  #splash .w[hidden] { display: none; }
+  #splash .w i { width: 18px; height: 18px; border-radius: 50%; border: 2.5px solid #CFE0D7; border-top-color: #1C6650; animation: spin .8s linear infinite; }
+  /* вход через Mail.ru не удался — пояснение и кнопка «Продолжить на сайте обители» прямо на заставке */
+  #splash .go { display: inline-block; margin-top: 4px; padding: 12px 22px; border-radius: 999px; background: #1C6650; color: #fff; text-decoration: none; font: 600 15px/1.3 "Fira Sans", "Segoe UI", Roboto, Arial, sans-serif; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  @keyframes breathe { 0%, 100% { transform: scale(1); opacity: .92; } 50% { transform: scale(1.035); opacity: 1; } }
+  /* страница «Сайт готовится к открытию» — пока нет ключа просмотра */
+  #soon { position: fixed; inset: 0; display: grid; place-items: center; font: 17px/1.55 Georgia, "Times New Roman", serif; color: #fff;
+    background: #1c2b25 url("https://lh3.googleusercontent.com/d/1eYOc__khdfUowAneHGfdmIQ8I4yJdomq=w1600") center/cover no-repeat; }
+  #soon[hidden] { display: none; }
+  #soon .sh { position: fixed; inset: 0; background: linear-gradient(180deg, rgba(15,25,21,.35), rgba(15,25,21,.72)); }
+  #soon .c { position: relative; max-width: 34rem; margin: 24px; padding: 32px 28px; text-align: center; background: rgba(15,25,21,.55);
+    border: 1px solid rgba(255,255,255,.25); border-radius: 14px; }
+  #soon .x { font-size: 2rem; line-height: 1; margin-bottom: 10px; opacity: .9; }
+  #soon h1 { font-size: 1.45rem; font-weight: normal; margin: 0 0 4px; }
+  #soon .m { opacity: .85; margin: 0 0 20px; }
+  #soon p { margin: 0 0 12px; }
+  #soon hr { border: 0; border-top: 1px solid rgba(255,255,255,.25); margin: 18px auto; width: 60%; }
+  #soon .l { font-size: .95rem; opacity: .9; }
+  iframe { display: block; border: 0; width: 100%; height: 100vh; height: 100dvh; }
+  @media (prefers-color-scheme: dark) {
+    html, body, #splash { background: #0E1513; }
+    #splash { color: #E3EAE6; }
+    #splash .s { color: #DDB461; }
+    #splash .w { color: #62B996; }
+    #splash .w i { border-color: #17302A; border-top-color: #62B996; }
+  }
+  @media (prefers-reduced-motion: reduce) { #splash img, #splash .w i { animation: none; } }
 </style>
 </head>
 <body>
-<div class="c">
-  <img class="seal" src="/logo.webp" alt="" width="84" height="84">
-  <h1 id="t">Вход через Google</h1>
-  <p id="h">Выберите аккаунт Google — после этого вы вернётесь на сайт обители.</p>
-  <div id="gsi"></div>
-  <p class="err" id="e" hidden></p>
-  <p class="alt"><a id="alt" href="#">Не получается? Другой способ входа</a></p>
-</div>
+<div id="splash" role="status"><div class="in"><img src="/logo.webp" alt="" width="132" height="132"><div class="n" id="sp-n">Свято-Пантелеимонов монастырь</div><div class="s" id="sp-s">Святая Гора Афон · Удел Богородицы</div><div class="w" id="sp-w" hidden><i></i><span></span></div><div class="off" id="sp-off" hidden>Нет связи с интернетом — сайт откроется, как только связь появится.<br>No internet connection.</div></div></div>
+<div id="soon" hidden><div class="sh"></div><div class="c"><div class="x">☦</div><h1>Свято-Пантелеимонов монастырь</h1><p class="m">Святая Гора Афон</p><p>Сайт обители готовится к открытию.</p><hr><p class="l">Ἱερὰ Μονὴ Ἁγίου Παντελεήμονος · Ἅγιον Ὄρος<br>Ὁ ἱστότοπος τῆς Μονῆς ἑτοιμάζεται.</p><p class="l">Holy Monastery of St Panteleimon · Mount Athos<br>The monastery website is being prepared.</p></div></div>
+<noscript><p>Свято-Пантелеимонов монастырь. Для сайта нужен JavaScript.</p></noscript>
 <script>
-/* Вход через Google на самом сайте stpanteleimon.gr (Папа 22.11): без страницы Apps Script и без полосы
-   «Это приложение создано пользователем Google Apps Script». Кнопка Google открывает нижнюю панель Google (FedCM);
-   ключ входа Google проверяет сервер обители (apiGoogleIdLogin), а сайт берёт готовый ответ (sp-gi) — как после прежнего входа. */
-(function () {
-  'use strict';
-  var API = ['https:', '', 'script.google.com', 'macros', 's', 'AKfycbw8GeiHe-gKmS68FWwlqcJmy8rU77qDIHDe_XTDARqmdjhct2NqODonH3mpOKLEUhL4', 'exec'].join('/');
-  var OLD = ['https:', '', 'script.google.com', 'macros', 's', 'AKfycbwOBCiCe7nfBc169Eib32GAYZDcLQIaxJBxVQdtR47-FGWVL7jF7PjuFYGEAAw6-D0vAg', 'exec'].join('/');
-  var CLIENT = '272039017793-s8niolup6vo0le6r35tflnqgb0vaqaao.apps.googleusercontent.com';
-  var T = {
-    ru: ['Вход через Google', 'Выберите аккаунт Google — после этого вы вернётесь на сайт обители.', 'Не получается? Другой способ входа', 'Выбрать аккаунт Google', 'Входим…', 'Не удалось войти через Google. Попробуйте ещё раз или выберите другой способ входа.'],
-    el: ['Σύνδεση με Google', 'Επιλέξτε λογαριασμό Google — μετά θα επιστρέψετε στον ιστότοπο της Μονής.', 'Δεν λειτουργεί; Άλλος τρόπος σύνδεσης', 'Επιλογή λογαριασμού Google', 'Σύνδεση…', 'Η σύνδεση με Google απέτυχε. Δοκιμάστε ξανά ή επιλέξτε άλλο τρόπο σύνδεσης.'],
-    en: ['Sign in with Google', 'Choose your Google account — then you will return to the monastery website.', 'Not working? Another way to sign in', 'Choose a Google account', 'Signing in…', 'Could not sign in with Google. Please try again or choose another way to sign in.'],
-    uk: ['Вхід через Google', 'Виберіть обліковий запис Google — після цього ви повернетеся на сайт обителі.', 'Не виходить? Інший спосіб входу', 'Вибрати обліковий запис Google', 'Входимо…', 'Не вдалося увійти через Google. Спробуйте ще раз або виберіть інший спосіб входу.'],
-    sr: ['Пријава преко Google-а', 'Изаберите Google налог — после тога се враћате на сајт манастира.', 'Не успева? Други начин пријаве', 'Изаберите Google налог', 'Пријављујемо…', 'Пријава преко Google-а није успела. Покушајте поново или изаберите други начин пријаве.'],
-    ro: ['Conectare cu Google', 'Alegeți contul Google — apoi reveniți pe site-ul mănăstirii.', 'Nu merge? Alt mod de conectare', 'Alegeți contul Google', 'Se conectează…', 'Conectarea cu Google nu a reușit. Încercați din nou sau alegeți alt mod de conectare.'],
-    de: ['Mit Google anmelden', 'Wählen Sie Ihr Google-Konto — danach kehren Sie zur Website des Klosters zurück.', 'Klappt es nicht? Anders anmelden', 'Google-Konto auswählen', 'Anmeldung…', 'Die Anmeldung mit Google ist fehlgeschlagen. Bitte versuchen Sie es erneut oder wählen Sie einen anderen Weg.'],
-    fr: ['Se connecter avec Google', 'Choisissez votre compte Google — vous reviendrez ensuite sur le site du monastère.', 'Ça ne marche pas ? Autre moyen de connexion', 'Choisir un compte Google', 'Connexion…', 'La connexion avec Google a échoué. Réessayez ou choisissez un autre moyen de connexion.']
-  };
-  var q = new URLSearchParams(location.search);
-  var lang = T[q.get('l')] ? q.get('l') : 'ru', L = T[lang];
-  var k = /^[A-Za-z0-9_-]{8,64}$/.test(q.get('k') || '') ? q.get('k') : '';
-  var $ = function (id) { return document.getElementById(id); };
-  document.documentElement.lang = lang; document.title = L[0] + ' — stpanteleimon.gr';
-  $('t').textContent = L[0]; $('h').textContent = L[1]; $('alt').textContent = L[2];
-  $('alt').href = OLD + '?l=' + lang + (k ? '&k=' + encodeURIComponent(k) : '') + '&w=1';
-  var back = function (gt) { location.replace('/?gt=' + encodeURIComponent(gt) + (k ? '&k=' + encodeURIComponent(k) : '') + '#filoxenia'); };
-  var fail = function () { $('e').textContent = L[5]; $('e').hidden = false; $('h').textContent = L[1]; $('h').className = ''; };
-  var rnd = function (n) { var a = new Uint8Array(n), c = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_', s = ''; crypto.getRandomValues(a); for (var i = 0; i < n; i++) s += c[a[i] % 64]; return s; };
-  function done(resp) {
-    var cred = resp && resp.credential; if (!cred) return;
-    $('e').hidden = true; $('h').textContent = L[4]; $('h').className = 'wait'; $('gsi').hidden = true;
-    fetch(API, { method: 'POST', body: JSON.stringify({ fn: 'apiGoogleIdLogin', args: [cred] }), headers: { 'Content-Type': 'text/plain;charset=utf-8' }, credentials: 'omit', redirect: 'follow', cache: 'no-store' })
-      .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
-      .then(function (o) {
-        var r = o && o.ok ? o.r : null;
-        if (!r || !r.ok) { $('gsi').hidden = false; fail(); return; }
-        /* ответ сервера (вошёл — или новый паломник: анкета Реестра с его почтой) — сайту: загрузчик возьмёт его по этой метке */
-        var tok = 'gi' + rnd(22) + '.' + rnd(43);
-        try { localStorage.setItem('sp-gi', JSON.stringify({ tok: tok, t: Date.now(), o: o })); } catch (e) { /* без памяти — не выйдет */ }
-        back(tok);
-      })
-      .catch(function () { $('gsi').hidden = false; fail(); });
-  }
-  var fedBtn = false;
-  try { var pr = navigator.credentials && navigator.credentials.get({ identity: Object.defineProperty({}, 'mode', { get: function () { fedBtn = true; return 'active'; } }) }); if (pr && pr.catch) pr.catch(function () {}); } catch (e) { /* нет FedCM */ }
-  var sc = document.createElement('script'); sc.src = 'https://accounts.google.com/gsi/client'; sc.async = true;
-  sc.onload = function () {
-    try {
-      var G = google.accounts.id;
-      G.initialize({ client_id: CLIENT, callback: done, auto_select: false, cancel_on_tap_outside: false, context: 'signin', use_fedcm_for_prompt: true, use_fedcm_for_button: fedBtn, button_auto_select: false });
-      if (fedBtn) G.renderButton($('gsi'), { type: 'standard', theme: 'filled_blue', size: 'large', shape: 'pill', text: 'continue_with', logo_alignment: 'left', locale: lang, width: 300 });
-      else {
-        var b = document.createElement('button'); b.type = 'button'; b.className = 'btn'; b.textContent = L[3];
-        b.addEventListener('click', function () { try { G.prompt(); } catch (e) { location.href = $('alt').href; } });
-        $('gsi').appendChild(b); G.prompt();
-      }
-    } catch (e) { fail(); }
-  };
-  sc.onerror = function () { location.replace($('alt').href); };   // Google не загрузился — прежний вход
-  document.head.appendChild(sc);
-})();
+  /* Сайт лежит здесь же (stpanteleimon.gr), а не в рамке Google, — поэтому открывается сразу.
+     Пока сайт закрыт, страница и все её части лежат зашифрованными (AES-GCM, ключ выводится из ключа просмотра).
+     Ключ просмотра приходит в ссылке stpanteleimon.gr/?k=КЛЮЧ и запоминается в этом браузере; без ключа видна страница
+     «Сайт готовится к открытию». С сервером (Google Apps Script) страница говорит запросами — запись, вход, календарь мест. */
+  (function () {
+    var KIND = "root", APP = "", HOME = "";   // APP — рабочее приложение (arch, sluzhba): только свой экран, по-русски
+    var CFG = {"api":"https://script.google.com/macros/s/AKfycbw8GeiHe-gKmS68FWwlqcJmy8rU77qDIHDe_XTDARqmdjhct2NqODonH3mpOKLEUhL4/exec","v":"1c2c711a2f","a":"s/a.1c2c711a2f.bin","d":{"cal_en":"s/d/cal_en.662a7330d9.bin","cal_ro":"s/d/cal_ro.b72f9026f9.bin","cal_ru":"s/d/cal_ru.96fad2e7e2.bin","calx":"s/d/calx.efc93ee1c2.bin","emblem":"s/d/emblem.c3383bf823.bin","hist_ru":"s/d/hist_ru.d00a765d3f.bin","i18n_de":"s/d/i18n_de.5cd04c704e.bin","i18n_el":"s/d/i18n_el.452e10ec69.bin","i18n_en":"s/d/i18n_en.68dcaae92a.bin","i18n_fr":"s/d/i18n_fr.bad81c1d0b.bin","i18n_ro":"s/d/i18n_ro.8de30d1be6.bin","i18n_sr":"s/d/i18n_sr.f53823129e.bin","i18n_uk":"s/d/i18n_uk.64b08b7db5.bin","krom_base":"s/d/krom_base.2df0f65e63.bin","krom_de":"s/d/krom_de.4dcc0c5832.bin","krom_el":"s/d/krom_el.41f61b16f1.bin","krom_en":"s/d/krom_en.36de5b1f49.bin","krom_fr":"s/d/krom_fr.6d32511100.bin","krom_ro":"s/d/krom_ro.d72a72136e.bin","krom_ru":"s/d/krom_ru.434eef041f.bin","krom_sr":"s/d/krom_sr.5017b15735.bin","krom_uk":"s/d/krom_uk.b30eb28f28.bin","lib_pb":"s/d/lib_pb.7e5bfd4ef8.bin","photos_src":"s/d/photos_src.4e165b0db0.bin","seal":"s/d/seal.a768e46a4a.bin"},"salt":"QXS13Uu05xQ7UwmlNTgRCQ==","it":150000};
+    var LANGS = ["ru", "el", "en", "uk", "sr", "ro", "de", "fr"], hl = "";
+    var NAMES = {"ru":["Свято-Пантелеимонов монастырь","Святая Гора Афон · Удел Богородицы"],"el":["Ιερά Μονή Αγίου Παντελεήμονος","Άγιον Όρος · Περιβόλι της Παναγίας"],"en":["St Panteleimon Monastery","Mount Athos · The Garden of the Mother of God"],"uk":["Свято-Пантелеймонів монастир","Свята Гора Афон · Уділ Богородиці"],"sr":["Манастир Светог Пантелејмона","Света Гора Атонска · Врт Пресвете Богородице"],"ro":["Mănăstirea Sfântul Pantelimon","Sfântul Munte Athos · Grădina Maicii Domnului"],"de":["Kloster des hl. Panteleimon","Heiliger Berg Athos · Garten der Gottesmutter"],"fr":["Monastère Saint-Panteleimon","Mont Athos · Jardin de la Mère de Dieu"]};
+    var ls = function (k, v) { try { if (v === undefined) return localStorage.getItem(k) || ""; if (v === null) localStorage.removeItem(k); else localStorage.setItem(k, v); } catch (e) { /* без памяти */ } return ""; };
+    hl = APP ? "ru" : ls("hl");
+    if (LANGS.indexOf(hl) < 0) { hl = String(navigator.language || "ru").slice(0, 2).toLowerCase(); if (LANGS.indexOf(hl) < 0) hl = "ru"; }
+    if (!APP) { document.getElementById("sp-n").textContent = NAMES[hl][0]; document.getElementById("sp-s").textContent = NAMES[hl][1]; }
+    document.documentElement.lang = hl;
+    /* приложение на телефоне: предложение браузера могло прийти раньше страницы — сохраняем его */
+    window.addEventListener("beforeinstallprompt", function (e) { e.preventDefault(); window.__bip = e; });
+    if ("serviceWorker" in navigator) { try { navigator.serviceWorker.register("/sw.js").catch(function () { /* без приложения */ }); } catch (e) { /* ignore */ } }
+    var q = new URLSearchParams(location.search);
+    /* вход через Google / Mail.ru начат на второй версии сайта (/v2/) — возвращаемся туда же, с той же меткой */
+    try { var rv = JSON.parse(ls("sp-ret") || "null"); if (rv && /^\/v2\/(app\/)?$/.test(rv.p) && Date.now() - rv.t < 1800000 && (q.get("gt") || q.get("mt"))) { ls("sp-ret", null); location.replace(rv.p + location.search + location.hash); return; } } catch (e) { /* как обычно */ }
+    var k = q.get("k") || "";
+    if (k && !/^[A-Za-z0-9_-]{8,64}$/.test(k)) k = "";
+    if (k) ls("k", k); else k = ls("k");
+    var splash = document.getElementById("splash");
+    var soon = function () { splash.hidden = true; splash.style.display = "none"; document.getElementById("soon").hidden = false; document.title = "Свято-Пантелеимонов монастырь"; };
+    /* Папа 19.11: Mail.ru возвращает сюда, на stpanteleimon.gr (?code=…&state=mr.…), а не на страницу Apps Script с полосой
+       «Это приложение создано пользователем Google Apps Script». Код сразу уходит на сервер (apiMailruCode), дальше — как прежде:
+       переход по ссылке с меткой ?gt=… (и ?k=…, если сайт открыт по ключу просмотра). */
+    var mrSt = APP ? "" : (q.get("state") || "");
+    if (window.fetch && /^mr\./.test(mrSt) && (q.get("code") || q.get("error"))) {
+      var MR = {"ru":["Входим через Mail.ru…","Не удалось войти через Mail.ru. Вернитесь на сайт и попробуйте ещё раз или войдите по e-mail и паролю.","Продолжить на сайте обители"],"el":["Σύνδεση μέσω Mail.ru…","Δεν ήταν δυνατή η σύνδεση μέσω Mail.ru. Επιστρέψτε στον ιστότοπο και δοκιμάστε ξανά ή συνδεθείτε με το e-mail και τον κωδικό σας.","Συνέχεια στον ιστότοπο της Μονής"],"en":["Signing in with Mail.ru…","Could not sign in with Mail.ru. Go back to the website and try again, or sign in with your e-mail and password.","Continue to the monastery website"],"uk":["Входимо через Mail.ru…","Не вдалося увійти через Mail.ru. Поверніться на сайт і спробуйте ще раз або увійдіть за e-mail і паролем.","Продовжити на сайті обителі"],"sr":["Пријављујемо вас преко Mail.ru…","Пријава преко Mail.ru није успела. Вратите се на сајт и покушајте поново или уђите са имејлом и лозинком.","Наставите на сајт манастира"],"ro":["Conectare cu Mail.ru…","Conectarea cu Mail.ru nu a reușit. Reveniți pe site și încercați din nou sau autentificați-vă cu e-mailul și parola.","Continuați pe site-ul mănăstirii"],"de":["Anmeldung mit Mail.ru…","Die Anmeldung mit Mail.ru ist fehlgeschlagen. Kehren Sie zur Website zurück und versuchen Sie es erneut oder melden Sie sich mit E-Mail-Adresse und Passwort an.","Weiter zur Website des Klosters"],"fr":["Connexion avec Mail.ru…","Impossible de se connecter avec Mail.ru. Revenez sur le site et réessayez, ou connectez-vous avec votre e-mail et votre mot de passe.","Continuer vers le site du monastère"]};
+      var mrL = mrSt.split(".")[1];
+      if (LANGS.indexOf(mrL) >= 0) { hl = mrL; document.documentElement.lang = hl; document.getElementById("sp-n").textContent = NAMES[hl][0]; document.getElementById("sp-s").textContent = NAMES[hl][1]; }
+      var mrT = MR[hl] || MR.ru, mrW = document.getElementById("sp-w");
+      if (mrW) { mrW.lastChild.textContent = mrT[0]; mrW.hidden = false; }
+      var mrCode = q.get("code") || "", mrErr = q.get("error") || "";
+      try { history.replaceState(null, "", location.pathname); } catch (e) { /* ignore */ }   // одноразовый код не оставляем в адресе
+      var mrSafe = function (u) { u = String(u || ""); return /^https:\/\/(www\.)?stpanteleimon\.gr\//.test(u) || /^https:\/\/script\.google\.com\/macros\/s\//.test(u) ? u : ""; };
+      var mrFail = function (r) {
+        r = r || {};
+        if (mrW) mrW.hidden = true;
+        var box = splash.querySelector(".in"), p = document.createElement("div"), a = document.createElement("a");
+        p.className = "off"; p.textContent = r.msg || mrT[1];
+        a.className = "go"; a.href = mrSafe(r.url) || "/"; a.textContent = r.go || mrT[2];
+        box.appendChild(p); box.appendChild(a);
+      };
+      fetch(CFG.api, { method: "POST", body: JSON.stringify({ fn: "apiMailruCode", args: [mrCode, mrSt, mrErr] }),
+        headers: { "Content-Type": "text/plain;charset=utf-8" }, credentials: "omit", redirect: "follow", cache: "no-store" })
+        .then(function (r) { if (!r.ok) throw new Error("HTTP " + r.status); return r.json(); })
+        .then(function (o) { var r = o && o.ok ? o.r : null, u = r && r.ok ? mrSafe(r.url) : ""; if (u) location.replace(u); else mrFail(r); })
+        .catch(function () { mrFail(null); });
+      return;
+    }
+    /* очень старый браузер (нет расшифровки или распаковки) — прежний путь: сайт в рамке Google */
+    var old = !(window.fetch && window.crypto && crypto.subtle && window.TextEncoder && window.DecompressionStream && window.Promise);
+    if (old) {
+      var fr = document.createElement("iframe");
+      fr.title = NAMES[hl][0];
+      fr.src = CFG.api + "?w=1" + (APP ? "&app=" + APP : "") + (k ? "&k=" + encodeURIComponent(k) : "") + (hl !== "ru" ? "&hl=" + hl : "") +
+        (q.get("gt") ? "&gt=" + encodeURIComponent(q.get("gt")) : "") + (location.hash || (HOME ? "#" + HOME : ""));
+      fr.addEventListener("load", function () { setTimeout(function () { splash.style.display = "none"; }, 1500); });
+      document.body.appendChild(fr);
+      return;
+    }
+    if (CFG.open !== 1 && !k) { soon(); return; }
+    /* вернулись от Google / Mail.ru с меткой ?gt=…: на заставке — «Вход…», а метка сразу уходит на сервер, пока страница
+       расшифровывается; сайт возьмёт готовый ответ (window.__PRE_LOGIN) — вход короче на время загрузки страницы */
+    var gt = APP ? "" : (q.get("gt") || "");
+    if (!/^(m[0-9a-f]{32}|[A-Za-z0-9_-]{8,400}\.[A-Za-z0-9_-]{40,50})$/.test(gt)) gt = "";
+    if (gt) {
+      var SIGN = {"ru":"Входим в вашу учётную запись…","el":"Σύνδεση στον λογαριασμό σας…","en":"Signing you in…","uk":"Входимо у ваш обліковий запис…","sr":"Пријављујемо вас на налог…","ro":"Vă conectăm la cont…","de":"Sie werden angemeldet…","fr":"Connexion à votre compte…"};
+      var sw = document.getElementById("sp-w");
+      if (sw) { sw.lastChild.textContent = SIGN[hl] || SIGN.ru; sw.hidden = false; }
+      try {
+        /* Папа 22.11: вход через Google на странице /glogin/ (кнопка Google на stpanteleimon.gr, без страницы Apps Script) — её ответ сервера уже готов */
+        var gi = null; try { gi = JSON.parse(ls("sp-gi") || "null"); } catch (e) { gi = null; }
+        if (gi) ls("sp-gi", null);
+        var pre = gi && gi.tok === gt && Date.now() - gi.t < 180000 && gi.o ? Promise.resolve(gi.o) : fetch(CFG.api, { method: "POST", body: JSON.stringify({ fn: gt.charAt(0) === "m" && gt.indexOf(".") < 0 ? "apiMailruLogin" : "apiGoogleLogin", args: [gt] }),
+          headers: { "Content-Type": "text/plain;charset=utf-8" }, credentials: "omit", redirect: "follow", cache: "no-store" })
+          .then(function (r) { if (!r.ok) throw new Error("HTTP " + r.status); return r.json(); });
+        pre.catch(function () { /* не вышло — сайт спросит сервер сам */ });
+        window.__PRE_LOGIN = { gt: gt, p: pre };
+      } catch (e) { window.__PRE_LOGIN = null; }
+    }
+    var b64 = function (s) { var b = atob(s), u = new Uint8Array(b.length); for (var i = 0; i < b.length; i++) u[i] = b.charCodeAt(i); return u; };
+    var keyP;
+    if (CFG.open === 1) keyP = Promise.resolve(null);
+    else {
+      var saved = null;
+      try { saved = JSON.parse(ls("kk") || "null"); } catch (e) { saved = null; }
+      keyP = (saved && saved.s === CFG.salt && saved.k === k)
+        ? crypto.subtle.importKey("raw", b64(saved.r), "AES-GCM", false, ["decrypt"])
+        : crypto.subtle.importKey("raw", new TextEncoder().encode(k), "PBKDF2", false, ["deriveBits"])
+          .then(function (base) { return crypto.subtle.deriveBits({ name: "PBKDF2", salt: b64(CFG.salt), iterations: CFG.it, hash: "SHA-256" }, base, 256); })
+          .then(function (bits) {
+            var u = new Uint8Array(bits), s = "";
+            for (var i = 0; i < u.length; i++) s += String.fromCharCode(u[i]);
+            ls("kk", JSON.stringify({ s: CFG.salt, k: k, r: btoa(s) }));
+            return crypto.subtle.importKey("raw", bits, "AES-GCM", false, ["decrypt"]);
+          });
+    }
+    /* файл: [12 байт IV][шифр] от gzip-сжатого текста; когда сайт откроют — просто gzip */
+    var openFile = function (key, url) {
+      return fetch("/" + url).then(function (r) { if (!r.ok) throw new Error("HTTP " + r.status); return r.arrayBuffer(); })
+        .then(function (buf) { return key ? crypto.subtle.decrypt({ name: "AES-GCM", iv: new Uint8Array(buf, 0, 12) }, key, new Uint8Array(buf, 12)) : buf; })
+        .then(function (gz) { return new Response(new Blob([gz]).stream().pipeThrough(new DecompressionStream("gzip"))).text(); });
+    };
+    var cache = {};
+    var parts = function (names) {
+      return keyP.then(function (key) {
+        return Promise.all(names.map(function (n) {
+          var f = CFG.d[n];
+          if (!f) return "";
+          if (!cache[n]) cache[n] = openFile(key, f).catch(function () { delete cache[n]; return ""; });
+          return cache[n];
+        }));
+      }).then(function (v) { var o = {}; names.forEach(function (n, i) { o[n] = v[i] || ""; }); return o; });
+    };
+    window.__STATIC = { api: CFG.api, k: k, kind: KIND, app: APP, home: HOME, ver: CFG.v, parts: parts };
+    /* рабочее приложение без интернета: страница — из памяти устройства, данные — последние сохранённые, отметки — в очередь;
+       связь вернётся — экран сам перейдёт к настоящему */
+    if (APP && navigator.onLine === false) window.__OFFSHELL = 1;
+    var offline = function () { document.getElementById("sp-off").hidden = false; window.addEventListener("online", function () { location.reload(); }); };
+    if (!APP) parts(["seal"]);   // печать над надписями главной — качаем вместе со страницей, чтобы она не появлялась позже
+    Promise.all([keyP.then(function (key) { return openFile(key, CFG.a); }), hl !== "ru" ? parts(["i18n_" + hl]) : Promise.resolve({})])
+      .then(function (r) {
+        var add = "window.__GK='';";
+        var tr = r[1]["i18n_" + hl];
+        if (tr) add += "window.I18N=window.I18N||{};window.I18N." + hl + "=" + tr.replace(/<\//g, "<\\/") + ";";
+        /* document.write заменяет всю страницу вместе с головой: манифест приложения, значки и noindex переносим в новую голову —
+           без ссылки на манифест Chrome на Android пишет «This app cannot be installed», а iPhone ставит значок без герба */
+        var keep = "";
+        try {
+          Array.prototype.forEach.call(document.head.querySelectorAll('link[rel="manifest"],link[rel="apple-touch-icon"],link[rel="icon"],meta[name="theme-color"],meta[name="robots"],meta[name="mobile-web-app-capable"],meta[name^="apple-mobile-web-app"]'),
+            function (n) { keep += n.outerHTML; });
+        } catch (e) { keep = ""; }
+        var html = r[0], hm = /<head(\s[^>]*)?>/i.exec(html);
+        html = hm ? html.slice(0, hm.index + hm[0].length) + keep + html.slice(hm.index + hm[0].length) : keep + html;
+        document.open();
+        document.write(html + "<script>" + add + "<\/script>");
+        document.close();
+      }, function (err) {
+        var msg = String((err && (err.name + " " + err.message)) || err);
+        if (/OperationError|decrypt/i.test(msg) && CFG.open !== 1) { ls("k", null); ls("kk", null); soon(); return; }   // ключ не подошёл
+        if (navigator.onLine === false || /fetch|network|HTTP 0/i.test(msg)) { offline(); return; }
+        setTimeout(function () { location.reload(); }, 4000);
+      });
+  })();
 </script>
 </body>
 </html>
