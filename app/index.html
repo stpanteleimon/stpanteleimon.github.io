@@ -5,14 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Свято-Пантелеимонов монастырь — Святая Гора Афон</title>
 <meta name="robots" content="noindex, nofollow">
-<meta name="theme-color" content="#1C6650">
-<link rel="manifest" href="/app/manifest.webmanifest">
-<link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="Пантелеимон 2">
-<meta name="apple-mobile-web-app-status-bar-style" content="default">
-<link rel="icon" href="/favicon-48.png" sizes="48x48" type="image/png">
+<meta name="theme-color" content="#0B130F">
 <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
 <link rel="preconnect" href="https://script.google.com">
 <link rel="preconnect" href="https://lh3.googleusercontent.com">
@@ -38,22 +31,12 @@
   #soon .c { max-width: 34rem; margin: 24px; padding: 32px 28px; text-align: center; border: 1px solid rgba(255,255,255,.25); border-radius: 14px; }
   #soon h1 { font-size: 1.45rem; font-weight: normal; margin: 0 0 4px; }
   #soon p { margin: 0 0 12px; }
-  /* приложение второй версии: светлая заставка и зелёный — как у приложения первой версии (Папа 20.11, 21:55) */
-  html, body, #splash { background: #F3F5F1; }
-  #splash { color: #16211D; }
-  #splash img { box-shadow: none; border-radius: 0; }
-  #splash .s { color: #7E5B0E; }
-  #splash .off { color: #56645D; }
-  @media (prefers-color-scheme: dark) { html, body, #splash { background: #0E1513; } #splash { color: #E3EAE6; } #splash .s { color: #DDB461; } #splash .off { color: rgba(227,234,230,.75); } }
 </style>
 </head>
 <body>
 <div id="splash" role="status"><div class="in"><img src="/logo.webp" alt="" width="132" height="132"><div class="n" id="sp-n">Свято-Пантелеимонов монастырь</div><div class="s" id="sp-s">Святая Гора Афон · Удел Богородицы</div><div class="w" id="sp-w" hidden><i></i><span></span></div><div class="off" id="sp-off" hidden>Нет связи с интернетом — сайт откроется, как только связь появится.</div></div></div>
 <div id="soon" hidden><div class="c"><div style="font-size:2rem">☦</div><h1 id="so-n">Свято-Пантелеимонов монастырь</h1><p id="so-s">Святая Гора Афон</p><p id="so-t">Сайт обители готовится к открытию.</p></div></div>
 <noscript><p>Свято-Пантелеимонов монастырь. Для сайта нужен JavaScript.</p></noscript>
-<script>
-if ("serviceWorker" in navigator) { try { navigator.serviceWorker.register("/sw.js").catch(function () { /* без приложения */ }); } catch (e) { /* ignore */ } }
-</script>
 <script>
 /* Сайт обители (stpanteleimon.gr; Папа 25.11: вторая версия — главная и единственная, /v2/ больше нет). Пока сайт закрыт,
    страница зашифрована и открывается ключом просмотра (из ссылки ?k=… или сохранённым на этом устройстве). */
@@ -73,18 +56,7 @@ if ("serviceWorker" in navigator) { try { navigator.serviceWorker.register("/sw.
   var k = q.get("k") || "";
   if (k && !/^[A-Za-z0-9_-]{8,64}$/.test(k)) k = "";
   if (k) ls("k", k); else k = ls("k");
-  var soon = function () { var s = document.getElementById("splash"); s.style.display = "none"; document.getElementById("soon").hidden = false;
-    /* в приложении для Android адресной строки нет — ключ просмотра вводят здесь (пока сайт закрыт до открытия) */
-    if (window.SPTApp && !document.getElementById("kf")) {
-      var c = document.querySelector("#soon .c"), f = document.createElement("form");
-      f.id = "kf"; f.setAttribute("autocomplete", "off");
-      f.style.cssText = "margin-top:18px;display:grid;gap:10px;justify-items:center";
-      f.innerHTML = '<input id="kf-k" type="password" inputmode="text" autocapitalize="off" spellcheck="false" placeholder="Ключ просмотра" style="font:16px/1.3 sans-serif;padding:10px 12px;border-radius:10px;border:1px solid rgba(255,255,255,.4);background:rgba(255,255,255,.1);color:#fff;width:15rem;text-align:center">'
-        + '<button type="submit" style="font:600 15px/1.3 sans-serif;padding:10px 22px;border-radius:999px;border:0;background:#1C6650;color:#fff">Открыть</button>';
-      f.addEventListener("submit", function (e) { e.preventDefault(); var v = String(document.getElementById("kf-k").value || "").trim();
-        if (/^[A-Za-z0-9_-]{8,64}$/.test(v)) location.replace(location.pathname + "?k=" + encodeURIComponent(v) + location.hash); });
-      c.appendChild(f);
-    } };
+  var soon = function () { var s = document.getElementById("splash"); s.style.display = "none"; document.getElementById("soon").hidden = false; };
   if (location.pathname === "/") {
     /* вход через Google / Mail.ru начат в приложении (/app/) — Google и Mail.ru вернули на главную: обратно в приложение, с той же меткой */
     try { var rv = JSON.parse(ls("sp-ret") || "null"); if (rv && rv.p === "/app/" && Date.now() - rv.t < 1800000 && (q.get("gt") || q.get("mt"))) {
@@ -144,15 +116,7 @@ if ("serviceWorker" in navigator) { try { navigator.serviceWorker.register("/sw.
   window.__V2.lang = lg;
   keyP.then(function (key) { return raw(key, PAGES[lg] || PAGES.ru); })
     .then(function (gz) { return new Response(new Blob([gz]).stream().pipeThrough(new DecompressionStream("gzip"))).text(); })
-    .then(function (html) {
-      /* document.write заменяет голову: манифест, значки и зелёную строку состояния переносим в новую голову (как у приложения первой версии) */
-      var keep = "";
-      try { Array.prototype.forEach.call(document.head.querySelectorAll('link[rel="manifest"],link[rel="apple-touch-icon"],link[rel="icon"],meta[name="theme-color"],meta[name="robots"],meta[name="mobile-web-app-capable"],meta[name^="apple-mobile-web-app"]'), function (n) { keep += n.outerHTML; }); } catch (e) { keep = ""; }
-      html = html.replace(/<meta name="theme-color"[^>]*>/gi, "");
-      var hm = /<head(\s[^>]*)?>/i.exec(html);
-      html = hm ? html.slice(0, hm.index + hm[0].length) + keep + html.slice(hm.index + hm[0].length) : keep + html;
-      document.open(); document.write(html); document.close();
-    }, function (err) {
+    .then(function (html) { document.open(); document.write(html); document.close(); }, function (err) {
       var msg = String((err && (err.name + " " + err.message)) || err);
       if (/OperationError|decrypt/i.test(msg)) { ls("k", null); ls("kk", null); soon(); return; }   // ключ не подошёл
       if (navigator.onLine === false || /fetch|network|HTTP 0/i.test(msg)) { document.getElementById("sp-off").hidden = false; window.addEventListener("online", function () { location.reload(); }); return; }
